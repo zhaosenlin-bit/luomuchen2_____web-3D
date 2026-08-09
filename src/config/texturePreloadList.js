@@ -1,6 +1,5 @@
-/**
- * Texture Preload List - ALL textures for the entire experience
- * Everything loads during the initial preloader for zero stutter when entering rooms.
+﻿/**
+ * Texture Preload List - full set for desktop, smaller core set for low-end/mobile entry
  */
 
 // Entrance scene textures
@@ -24,13 +23,12 @@ export const ENTRANCE_TEXTURES = [
     // Characters/Objects
     '/cartoon/textures/entrance/cat_front_body.webp',
     '/cartoon/textures/entrance/window_sketch.webp',
-    '/cartoon/textures/entrance/avatar_window.webp',
+    '/cartoon/media/tech-sketches/window-avatar-handdrawn-cutout.png',
     '/cartoon/textures/entrance/tree_sketch.webp',
     '/cartoon/textures/entrance/mouse_hanging.webp',
     '/cartoon/textures/entrance/pot_with_duck.webp',
     '/cartoon/textures/entrance/bug_sketch.webp',
     '/cartoon/textures/entrance/speech_bubble.webp',
-    '/cartoon/media/handdrawn-tech/window-avatar-handdrawn-cutout.png',
     '/cartoon/media/handdrawn-tech/entrance-ai-chip-doodle.png',
     '/cartoon/media/handdrawn-tech/entrance-terminal-doodle.png',
     '/cartoon/media/handdrawn-tech/entrance-neural-doodle.png',
@@ -41,8 +39,8 @@ export const ENTRANCE_TEXTURES = [
     '/cartoon/images/ink-splash.webp',
 ];
 
-// Corridor scene textures
-export const CORRIDOR_TEXTURES = [
+// Corridor core textures (used during the initial load on mobile/WeChat)
+export const CORRIDOR_CORE_TEXTURES = [
     // Walls/Floor/Ceiling
     '/cartoon/textures/corridor/wall_texture.webp',
     '/cartoon/textures/corridor/kawalekpodlogi.webp',
@@ -74,6 +72,15 @@ export const CORRIDOR_TEXTURES = [
     '/cartoon/textures/corridor/doors/drzwimoments_painted.webp',
     // Signs
     '/cartoon/textures/corridor/pustatabliczka.webp',
+    // DoorSection extras
+    '/cartoon/textures/corridor/strzalka.webp',
+    '/cartoon/textures/corridor/doors/door_back.webp',
+    '/cartoon/textures/corridor/doors/klamkadodrzwi_painted.webp',
+];
+
+// Corridor scene textures
+export const CORRIDOR_TEXTURES = [
+    ...CORRIDOR_CORE_TEXTURES,
     // Decorations
     '/cartoon/textures/corridor/decorations/while_true_loop.webp',
     '/cartoon/textures/corridor/decorations/coffee_debug.webp',
@@ -106,10 +113,6 @@ export const CORRIDOR_TEXTURES = [
     '/cartoon/textures/corridor/szafkaprzodgora.webp',
     '/cartoon/textures/corridor/rysuneknaobraz1.webp',
     '/cartoon/textures/corridor/rysuneknaobrazek3.webp',
-    // DoorSection extras
-    '/cartoon/textures/corridor/strzalka.webp',
-    '/cartoon/textures/corridor/doors/door_back.webp',
-    '/cartoon/textures/corridor/doors/klamkadodrzwi_painted.webp',
 ];
 
 // Standard HTML Image assets (preloaded via new Image() in App.jsx)
@@ -181,7 +184,7 @@ export const GALLERY_TEXTURES = [
         `/cartoon/textures/gallery/${name}.webp`,
         name === 'csslogo' ? `/cartoon/textures/gallery/css3logo_painted.webp` : `/cartoon/textures/gallery/${name}_painted.webp`
     ]),
-    // Real app screenshots (森林作品应用)
+    // Real app screenshots (妫灄浣滃搧搴旂敤)
     '/cartoon/media/apps/python-adventure.jpg',
     '/cartoon/media/apps/class-system.jpg',
     '/cartoon/media/apps/ai-classroom.jpg',
@@ -201,16 +204,13 @@ export const CONTACT_TEXTURES = [
     '/cartoon/textures/contact/send_button.webp',
     '/cartoon/textures/contact/beczka.webp',
     '/cartoon/textures/contact/beczka_painted.webp',
-    // 森林联系方式二维码
-    '/cartoon/media/qr/wechat.webp',
-    '/cartoon/media/qr/douyin.webp',
 ];
 
 // About Room textures (loaded via useLoader(TextureLoader))
 export const ABOUT_TEXTURES = [
     // Avatar
     '/cartoon/textures/about/awatarnachmurce.webp',
-    '/cartoon/media/photo-hero.webp',
+    '/cartoon/media/photo-hero.jpg',
     // Awards
     '/cartoon/textures/about/SOTY.webp',
     '/cartoon/textures/about/SOTY_painted.webp',
@@ -297,8 +297,7 @@ export const STUDIO_TEXTURES = [
     '/cartoon/textures/studio/phone_back_painted.webp',
     '/cartoon/textures/studio/phone_side.webp',
     '/cartoon/textures/studio/phone_side_painted.webp',
-    // 森林视频缩略图
-    '/cartoon/media/thumbs/personal-site.webp',
+    // 妫灄瑙嗛缂╃暐鍥?    '/cartoon/media/thumbs/personal-site.webp',
     '/cartoon/media/thumbs/interactive-knowledge.webp',
     '/cartoon/media/thumbs/color-english.webp',
     '/cartoon/media/thumbs/wechat-01.webp',
@@ -314,7 +313,7 @@ export const STUDIO_TEXTURES = [
     '/cartoon/textures/studio/tvfront_filmikprojektdlamultiego_painted.webp',
 ];
 
-// Moments Room textures (实拍照片)
+// Moments Room textures (瀹炴媿鐓х墖)
 export const MOMENTS_TEXTURES = [
     // 12 gallery photos
     '/cartoon/media/gallery/wrc7.jpg',
@@ -337,8 +336,8 @@ export const MOMENTS_TEXTURES = [
     '/cartoon/media/scenes/project-release-path.jpg',
     '/cartoon/media/scenes/service-loop-path.jpg',
     // 2 root photos
-    '/cartoon/media/photo-hero.webp',
-    '/cartoon/media/photo-wrcc.webp',
+    '/cartoon/media/photo-hero.jpg',
+    '/cartoon/media/photo-wrcc.jpg',
     // 3 posters
     '/cartoon/media/posters/personal-site.jpg',
     '/cartoon/media/posters/interactive-knowledge.jpg',
@@ -407,3 +406,4 @@ export const filterTexturesByDevice = (list, usePainted) => {
         return usePainted;
     });
 };
+

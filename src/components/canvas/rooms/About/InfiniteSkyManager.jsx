@@ -259,8 +259,8 @@ const InfiniteSkyManager = ({ scrollProgressRef }) => {
  */
 const IntroMilestone = ({ z, scrollProgressRef }) => {
     // Load avatar texture (real photo polaroid)
-    const avatarTexture = useLoader(THREE.TextureLoader, '/cartoon/media/photo-hero.webp');
-    const { camera, viewport } = useThree();
+    const avatarTexture = useLoader(THREE.TextureLoader, '/cartoon/media/photo-hero.jpg');
+    const { camera, viewport, gl } = useThree();
     const isTouch = isTouchDevice();
 
     // Refs for all animated elements
@@ -274,7 +274,14 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
     // Base positions
     const baseY = 2;
 
-    // Calculate aspect ratio (photo-hero.webp is portrait 3:4, polaroid frame removed)
+    useEffect(() => {
+        if (!avatarTexture) return;
+        avatarTexture.colorSpace = THREE.SRGBColorSpace;
+        avatarTexture.anisotropy = Math.min(8, gl?.capabilities?.getMaxAnisotropy?.() ?? 1);
+        avatarTexture.needsUpdate = true;
+    }, [avatarTexture, gl]);
+
+    // Calculate aspect ratio (photo-hero.jpg is portrait 3:4, polaroid frame removed)
     const avatarWidth = 2.0;
     const avatarHeight = avatarWidth * (4 / 3);
 

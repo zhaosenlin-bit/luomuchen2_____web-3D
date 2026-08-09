@@ -61,6 +61,7 @@ const Experience = ({ isLoaded, onSceneReady, performanceTier }) => {
 
     // Optimization: Low tier has simpler lighting
     const isLowTier = performanceTier === 'LOW';
+    const showCorridorDecorations = performanceTier !== 'LOW' || hasEntered;
 
     return (
         <>
@@ -106,6 +107,7 @@ const Experience = ({ isLoaded, onSceneReady, performanceTier }) => {
                 clipSegmentNeg1={!hasEntered} // Clip segment -1 visualization until entered
                 hiddenSegments={hasEntered ? [-1] : []}
                 setCameraOverride={setCameraOverride}
+                showDecorations={showCorridorDecorations}
             />
 
             {/* === TELEPORT ROOM (renders room directly during teleportation) === */}

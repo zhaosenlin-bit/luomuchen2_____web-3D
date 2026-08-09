@@ -78,6 +78,8 @@ export const AudioProvider = ({ children }) => {
     const play = useCallback((soundName, { loop = false, volume = 1.0 } = {}) => {
         // Graceful degradation if files missing
         const soundPaths = {
+            'pencil': '/cartoon/sounds/papersound.mp3',
+            'tear': '/cartoon/sounds/papersound.mp3',
             'szumwiatru': '/cartoon/sounds/szumwiatru.mp3', // Szum wiatru w pokoju About
             'szummiasta': '/cartoon/sounds/szummiasta.mp3', // Szum miasta w pokoju The Gallery
             'uchyleniedrzwi': '/cartoon/sounds/uchyleniedrzwi.mp3', // Skrzypienie przy najechaniu

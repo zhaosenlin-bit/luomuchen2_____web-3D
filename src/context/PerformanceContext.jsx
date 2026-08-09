@@ -20,7 +20,7 @@ const SETTINGS = {
     particleCount: 1.0, // 100% particles
   },
   [TIERS.MEDIUM]: {
-    dpr: [1, 1.5], // Cap at 1.5x on mobile to balance quality and GPU fillrate
+    dpr: [1, 2], // Keep modern mobile/WeChat screens crisp without going past 2x
     shadows: false, // Disable shadows for better mobile performance
     antialias: true,
     powerPreference: "default",
@@ -29,7 +29,7 @@ const SETTINGS = {
     particleCount: 0.6, // 60% particles
   },
   [TIERS.LOW]: {
-    dpr: [0.8, 1], // Minimum 0.8x pixel density to avoid extreme pixelation
+    dpr: [1, 1.5], // Keep a readable backing store while still protecting slow devices
     shadows: false, // Disable shadows completely
     antialias: false, // Disable AA to maximize FPS
     powerPreference: "low-power",
@@ -69,18 +69,22 @@ const getDeviceSignals = () => {
 
 const detectInitialTier = () => {
   const signals = getDeviceSignals();
-
-  if (
-    signals.isWeChat ||
+  const isVeryConstrained =
     signals.isSaveData ||
     signals.isSlowConnection ||
-    (signals.deviceMemory && signals.deviceMemory <= 4) ||
-    (signals.isMobile && signals.hardwareConcurrency && signals.hardwareConcurrency <= 4)
-  ) {
+    (signals.deviceMemory && signals.deviceMemory <= 3) ||
+    (signals.hardwareConcurrency && signals.hardwareConcurrency <= 2);
+
+  if (isVeryConstrained) {
     return TIERS.LOW;
   }
 
-  if (signals.isMobile || (signals.hardwareConcurrency && signals.hardwareConcurrency <= 4)) {
+  if (
+    signals.isMobile ||
+    signals.isWeChat ||
+    (signals.deviceMemory && signals.deviceMemory <= 4) ||
+    (signals.hardwareConcurrency && signals.hardwareConcurrency <= 4)
+  ) {
     return TIERS.MEDIUM;
   }
 

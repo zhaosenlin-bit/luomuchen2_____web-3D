@@ -25,7 +25,7 @@ import './styles/main.scss';
 // On mobile/low-end devices, only preloads core textures to prevent Out Of Memory crashes.
 import {
   ENTRANCE_TEXTURES,
-  CORRIDOR_TEXTURES,
+  CORRIDOR_CORE_TEXTURES,
   UI_TEXTURES,
   PRELOAD_ALL,
   PRELOAD_LOADER,
@@ -62,7 +62,7 @@ const supportsHover = typeof window !== 'undefined' && window.matchMedia('(hover
 
 // Trigger Three.js preloads at module level (as standard for Drei)
 if (isLowEnd) {
-  const CORE_TEXTURES = [...ENTRANCE_TEXTURES, ...CORRIDOR_TEXTURES, ...UI_TEXTURES, ...IMAGE_ASSETS];
+  const CORE_TEXTURES = [...ENTRANCE_TEXTURES, ...CORRIDOR_CORE_TEXTURES, ...UI_TEXTURES, ...IMAGE_ASSETS];
   const filteredCore = filterTexturesByDevice(CORE_TEXTURES, supportsHover);
 
   filteredCore.forEach(path => useTexture.preload(path));
@@ -192,7 +192,7 @@ function App3DContent() {
                   onSceneReady={handleSceneReady}
                   performanceTier={tier}
                 />
-                <Preload all />
+                <Preload all={tier !== 'LOW'} />
               </Suspense>
             </Canvas>
           </div>

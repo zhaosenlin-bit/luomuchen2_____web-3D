@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
+﻿import { useRef, useState, useEffect, useCallback } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text, PositionalAudio } from '@react-three/drei';
 import * as THREE from 'three';
@@ -408,7 +408,7 @@ const ContactRoom = ({ showRoom, onReady, isExiting, isWarmup }) => {
                     layout: 'photo',
                     title: '微信 · 扫码加我',
                     description: '\u5fae\u4fe1 zhaosenlin12 \u00b7 \u626b\u4e00\u626b\u52a0\u6211\u597d\u53cb',
-                    image: '/cartoon/media/qr/wechat.webp',
+                    image: '/cartoon/media/qr/wechat.jpg',
                     url: '',
                 })}
                 paintOnBeforeCompile={onBeforeCompile}

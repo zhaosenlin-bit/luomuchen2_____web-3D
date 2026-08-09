@@ -6,7 +6,7 @@ import { useScene } from '../context/SceneContext';
  * 页面部署于 https://senlin-c1n.pages.dev/cartoon/ 子路径。
  */
 
-const SITE_URL = 'https://senlin-c1n.pages.dev';
+const SITE_URL = typeof window !== 'undefined' ? window.location.origin : 'https://senlin.codebn.cn';
 const BASE = '/cartoon';
 
 const ROOM_META = {

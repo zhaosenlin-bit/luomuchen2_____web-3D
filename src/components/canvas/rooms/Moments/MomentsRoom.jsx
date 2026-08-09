@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, useEffect, useCallback, Suspense } from 'react';
+﻿import { useRef, useState, useMemo, useEffect, useCallback, Suspense } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text, useTexture, PositionalAudio } from '@react-three/drei';
 import * as THREE from 'three';
@@ -37,8 +37,8 @@ const PHOTOS = [
     { id: 's4', src: '/cartoon/media/scenes/robotics-path.jpg', title: '机器人之路', desc: '从一台机器到一场比赛,孩子学到的远不止是机械。' },
     { id: 's5', src: '/cartoon/media/scenes/project-release-path.jpg', title: '作品发布现场', desc: '作品、笔记与在舞台上讲的事,都被记下。' },
     { id: 's6', src: '/cartoon/media/scenes/service-loop-path.jpg', title: '服务与成长循环', desc: '课堂、反馈、迭代,一年又一年。' },
-    { id: 'r1', src: '/cartoon/media/photo-hero.webp', title: '森林', desc: '我是森林,一位手艺人出身的教育者。' },
-    { id: 'r2', src: '/cartoon/media/photo-wrcc.webp', title: 'WRC 赛场', desc: '赛场上的合影与纪念。' },
+    { id: 'r1', src: '/cartoon/media/photo-hero.jpg', title: '森林', desc: '我是森林,一位手艺人出身的教育者。' },
+    { id: 'r2', src: '/cartoon/media/photo-wrcc.jpg', title: 'WRC 赛场', desc: '赛场上的合影与纪念。' },
     { id: 'p1', src: '/cartoon/media/posters/personal-site.jpg', title: '个人站搭建全流程', desc: '网站 · 项目:完整记录个人站的搭建。' },
     { id: 'p2', src: '/cartoon/media/posters/interactive-knowledge.jpg', title: '互动知识课堂', desc: '课堂记录:可以动手玩的知识现场。' },
     { id: 'p3', src: '/cartoon/media/posters/color-english.jpg', title: '色彩英语 · AI 演示', desc: '人工智能 · 教学:AI 现场生成色彩单词卡片。' },
@@ -296,9 +296,12 @@ const VideoBackground = ({ isMobile }) => {
 // Polaroid frame whose size follows the photo's aspect ratio
 const PhotoFrame = ({ photo, onPhotoClick }) => {
     const texture = useTexture(photo.src);
+    const { gl } = useThree();
     useEffect(() => {
         texture.colorSpace = THREE.SRGBColorSpace;
-    }, [texture]);
+        texture.anisotropy = Math.min(8, gl?.capabilities?.getMaxAnisotropy?.() ?? 1);
+        texture.needsUpdate = true;
+    }, [texture, gl]);
 
     const dims = useMemo(() => {
         const img = texture.image;

@@ -477,7 +477,9 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                                                     left: 0,
                                                     width: '100%',
                                                     height: '100%',
-                                                    objectFit: 'fill'
+                                                    objectFit: 'contain',
+                                                    objectPosition: 'center center',
+                                                    backgroundColor: '#f9f9f9'
                                                 }}
                                             />
                                         </div>
@@ -522,7 +524,8 @@ const ContentCard = ({ content, isOpen, onClose, isMobile }) => {
                                 <img
                                     src={content.image}
                                     alt={content.title}
-                                    loading="lazy"
+                                    loading="eager"
+                                    fetchPriority="high"
                                     decoding="async"
                                     style={{
                                         display: 'block',

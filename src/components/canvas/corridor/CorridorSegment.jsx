@@ -34,7 +34,8 @@ const CorridorSegment = ({
     onDoorEnter,
     hideSegmentDoors = false, // Hide only SegmentDoors while keeping content preloaded
     zClip = 100000, // Clipping plane (render everything with Z < zClip)
-    setCameraOverride // Function to take over camera control
+    setCameraOverride, // Function to take over camera control
+    showDecorations = true
 }) => {
 
     // Calculate Z offset based on segment index
@@ -181,14 +182,16 @@ const CorridorSegment = ({
             {/* === LIGHTING === */}
             {/* pointLight removed for optimization as it didn't affect visuals significantly */}
 
-            <CorridorDecorations
-                segmentLength={SEGMENT_LENGTH}
-                zOffset={zOffset}
-                corridorWidth={WALL_X_OUTER * 2}
-                corridorHeight={3.5}
-                doorPositions={doors}
-                zClip={zClip}
-            />
+            {showDecorations && (
+                <CorridorDecorations
+                    segmentLength={SEGMENT_LENGTH}
+                    zOffset={zOffset}
+                    corridorWidth={WALL_X_OUTER * 2}
+                    corridorHeight={3.5}
+                    doorPositions={doors}
+                    zClip={zClip}
+                />
+            )}
 
             {/* === SEGMENT END DOORS (hidden during entrance) === */}
             {!hideSegmentDoors && segmentIndex !== -1 && (

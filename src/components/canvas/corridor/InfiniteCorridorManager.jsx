@@ -53,7 +53,8 @@ const InfiniteCorridorManager = ({
     hideDoorsForSegments = [], // Segments that should hide their SegmentDoors
     clipSegmentNeg1 = false, // Whether to clip segment -1 at EntranceDoors
     hiddenSegments = [],
-    setCameraOverride // Function to take over camera control
+    setCameraOverride, // Function to take over camera control
+    showDecorations = true
 }) => {
     const { camera } = useThree();
     // Pre-mount segments 0 and 1 so shaders compile during preloader.
@@ -99,6 +100,7 @@ const InfiniteCorridorManager = ({
                         hideSegmentDoors={hideDoorsForSegments.includes(segmentIndex)}
                         zClip={clipSegmentNeg1 && segmentIndex === -1 ? 22 : 100000}
                         setCameraOverride={setCameraOverride}
+                        showDecorations={showDecorations}
                     />
                 </SegmentVisibilityWrapper>
                 ))}

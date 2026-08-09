@@ -42,7 +42,7 @@ const EntranceDoors = ({
     const [isWindowHovered, setIsWindowHovered] = useState(false);
     const windowAvatarRef = useRef();
     const windowAvatarMaterialRef = useRef();
-    const { camera } = useThree();
+    const { camera, gl } = useThree();
     const { unlockAchievement } = useAchievements();
 
     const [isMobile, setIsMobile] = useState(false);
@@ -76,8 +76,8 @@ const EntranceDoors = ({
     // const catTexture = useTexture('/cartoon/textures/entrance/cat_sketch.webp'); // Old side cat
     const catFrontBodyTexture = useTexture('/cartoon/textures/entrance/cat_front_body.webp');
     const windowSketchTexture = useTexture('/cartoon/textures/entrance/window_sketch.webp');
-    // Use the personal photo from the original entrance design.
-    const avatarWindowTexture = useTexture('/cartoon/textures/entrance/avatar_window.webp');
+    // Use the original hand-drawn greeting figure in the window.
+    const avatarWindowTexture = useTexture('/cartoon/media/tech-sketches/window-avatar-handdrawn-cutout.png');
     const treeTexture = useTexture('/cartoon/textures/entrance/tree_sketch.webp');
     const mouseTexture = useTexture('/cartoon/textures/entrance/mouse_hanging.webp');
     const potTexture = useTexture('/cartoon/textures/entrance/pot_with_duck.webp');
@@ -90,6 +90,13 @@ const EntranceDoors = ({
     const terminalSketchTexture = useTexture('/cartoon/media/handdrawn-tech/entrance-terminal-doodle.png');
     const pythonSketchTexture = useTexture('/cartoon/media/handdrawn-tech/entrance-python-doodle.png');
     const avatarSketchTexture = useTexture('/cartoon/media/handdrawn-tech/entrance-avatar-badge-doodle.png');
+
+    useEffect(() => {
+        if (!avatarWindowTexture) return;
+        avatarWindowTexture.colorSpace = THREE.SRGBColorSpace;
+        avatarWindowTexture.anisotropy = Math.min(8, gl?.capabilities?.getMaxAnisotropy?.() ?? 1);
+        avatarWindowTexture.needsUpdate = true;
+    }, [avatarWindowTexture, gl]);
 
 
     // Cat Ref
@@ -906,10 +913,10 @@ const EntranceDoors = ({
                 color="#fff8e8"
                 distance={10}
             /> */}
-            {/* AVATAR - separate from window group, behind bricks */}
+            {/* AVATAR - aligned with the window opening, behind the frame */}
             <mesh
                 ref={windowAvatarRef}
-                position={[3.5, 0, 0.18]}
+                position={[2.5, 0, 0.18]}
                 rotation={[0, 0, 0]}
             >
                 <planeGeometry args={[1.5, 1.5]} />

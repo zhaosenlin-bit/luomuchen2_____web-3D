@@ -929,7 +929,8 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
                     anchorY="middle"
                     font="/cartoon/fonts/ZCOOLKuaiLe-Regular.ttf"
                 >
-                    Python 路 椤圭洰寮?                </Text>
+                    Python · 项目式
+                </Text>
             </group>
 
             {/* === FREELANCE ISLAND (Right) === */}
@@ -951,7 +952,7 @@ const JourneyMilestone = ({ z, scrollProgressRef }) => {
                     anchorY="middle"
                     font="/cartoon/fonts/ZCOOLKuaiLe-Regular.ttf"
                 >
-                    C++ 路 NOI/CSP
+                    C++ · NOI/CSP
                 </Text>
             </group>
         </group>

@@ -49,7 +49,6 @@ export const CORRIDOR_TEXTURES = [
     '/cartoon/textures/corridor/texturadoprogow.webp',
     '/cartoon/textures/corridor/texturadrewnadonozekbiurka.webp',
     '/cartoon/textures/corridor/ceiling_texture.webp',
-    '/cartoon/textures/corridor/avatar_sketch.webp',
     // Double doors (end of corridor)
     '/cartoon/textures/corridor/doors/frame_sketch.webp',
     '/cartoon/textures/corridor/doors/doorrleft.webp',
@@ -115,8 +114,6 @@ export const CORRIDOR_TEXTURES = [
 
 // Standard HTML Image assets (preloaded via new Image() in App.jsx)
 export const IMAGE_ASSETS = [
-    '/cartoon/images/avatar-thinking.webp',
-    '/cartoon/images/avatar-hero.webp',
     '/cartoon/images/ink-splash.webp',
     '/cartoon/images/map.webp',
     '/cartoon/images/map_about_painted.webp',
@@ -204,7 +201,8 @@ export const CONTACT_TEXTURES = [
     '/cartoon/textures/contact/send_button.webp',
     '/cartoon/textures/contact/beczka.webp',
     '/cartoon/textures/contact/beczka_painted.webp',
-    // 森林联系方式二维码    '/cartoon/media/qr/wechat.webp',
+    // 森林联系方式二维码
+    '/cartoon/media/qr/wechat.webp',
     '/cartoon/media/qr/douyin.webp',
 ];
 
@@ -299,7 +297,8 @@ export const STUDIO_TEXTURES = [
     '/cartoon/textures/studio/phone_back_painted.webp',
     '/cartoon/textures/studio/phone_side.webp',
     '/cartoon/textures/studio/phone_side_painted.webp',
-    // 森林视频缩略图    '/cartoon/media/thumbs/personal-site.webp',
+    // 森林视频缩略图
+    '/cartoon/media/thumbs/personal-site.webp',
     '/cartoon/media/thumbs/interactive-knowledge.webp',
     '/cartoon/media/thumbs/color-english.webp',
     '/cartoon/media/thumbs/wechat-01.webp',

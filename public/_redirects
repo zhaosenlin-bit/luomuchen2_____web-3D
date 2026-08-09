@@ -1,0 +1,14 @@
+# SPA fallback for HTML routes (must NOT match static assets)
+/cartoon                 /cartoon/index.html   200
+/cartoon/about           /cartoon/index.html   200
+/cartoon/about/          /cartoon/index.html   200
+/cartoon/practice        /cartoon/index.html   200
+/cartoon/practice/       /cartoon/index.html   200
+/cartoon/gallery         /cartoon/index.html   200
+/cartoon/gallery/        /cartoon/index.html   200
+/cartoon/studio          /cartoon/index.html   200
+/cartoon/studio/         /cartoon/index.html   200
+/cartoon/moments         /cartoon/index.html   200
+/cartoon/moments/        /cartoon/index.html   200
+/cartoon/contact         /cartoon/index.html   200
+/cartoon/contact/        /cartoon/index.html   200

@@ -1,0 +1,31 @@
+{
+  "name": "senlin-cartoon",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "assets:webp": "node scripts/optimize-images.mjs",
+    "assets:video": "node scripts/transcode-videos.mjs"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.2",
+    "@react-three/postprocessing": "^3.0.4",
+    "gsap": "^3.14.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.11.0",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.1",
+    "sass": "^1.97.1",
+    "sharp": "^0.34.5",
+    "vite": "^7.2.4",
+    "vite-plugin-compression": "^0.5.1"
+  }
+}

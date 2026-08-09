@@ -1,0 +1,20 @@
+﻿/cartoon/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/cartoon/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/cartoon/textures/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/cartoon/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/cartoon/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/cartoon/media/*
+  Cache-Control: public, max-age=604800
+
+/cartoon/sounds/*
+  Cache-Control: public, max-age=604800

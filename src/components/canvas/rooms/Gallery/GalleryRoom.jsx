@@ -40,7 +40,7 @@ const FALLBACK_PROJECTS = [
         title: '宇宙探索者',
         front: '/cartoon/media/apps/card-summit.jpg',
         painted: '/cartoon/media/apps/card-summit.jpg',
-        url: 'http://127.0.0.1:8123/universe.html',
+        url: 'http://127.0.0.1:8123/index.html',
         description: '我的代表作。3D 太阳系 + 5 阶段闯关游戏,用 React + Three.js 做的,已经独立完成并发布上线。',
         techStack: []
     },

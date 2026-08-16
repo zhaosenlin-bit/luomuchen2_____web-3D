@@ -74,10 +74,10 @@
   <!-- speech bubble -->
   <g>
     <path d="M450 65 Q450 40 475 40 L580 40 Q605 40 605 65 L605 95 Q605 120 580 120 L515 120 L502 134 L505 120 L475 120 Q450 120 450 95 Z" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
-    <text x="528" y="86" text-anchor="middle" font-family="'Comic Sans MS', cursive" font-size="16" font-weight="700" fill="#1a1a1a">Hi, I'm Muchen</text>
+    <text x="528" y="86" text-anchor="middle" font-family="'Comic Sans MS', cursive" font-size="16" font-weight="700" fill="#1a1a1a">Hi, I'm Senlin</text>
   </g>
 
   <!-- name plate -->
   <rect x="170" y="320" width="300" height="36" rx="8" fill="#1a1a1a"/>
-  <text x="320" y="345" text-anchor="middle" font-family="'Comic Sans MS', cursive" font-size="20" font-weight="700" fill="#ffd86b">骆沐辰 · Muchen · 小创客</text>
+  <text x="320" y="345" text-anchor="middle" font-family="'Comic Sans MS', cursive" font-size="20" font-weight="700" fill="#ffd86b">森林 · Senlin · 森林的猫</text>
 </svg>

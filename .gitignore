@@ -1,8 +1,0 @@
-node_modules/
-dist/
-tmp/
-.wrangler/
-*.log
-tmp-*.png
-*.local
-*.zip

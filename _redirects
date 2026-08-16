@@ -1,14 +1,14 @@
 # SPA fallback for HTML routes (must NOT match static assets)
-/cartoon                 /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/about           /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/about/          /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/practice        /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/practice/       /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/gallery         /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/gallery/        /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/studio          /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/studio/         /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/moments         /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/moments/        /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/contact         /luomuchen2_____web-3D/index.html   200
-/luomuchen2_____web-3D/contact/        /luomuchen2_____web-3D/index.html   200
+/cartoon                 /cartoon/index.html   200
+/cartoon/about           /cartoon/index.html   200
+/cartoon/about/          /cartoon/index.html   200
+/cartoon/practice        /cartoon/index.html   200
+/cartoon/practice/       /cartoon/index.html   200
+/cartoon/gallery         /cartoon/index.html   200
+/cartoon/gallery/        /cartoon/index.html   200
+/cartoon/studio          /cartoon/index.html   200
+/cartoon/studio/         /cartoon/index.html   200
+/cartoon/moments         /cartoon/index.html   200
+/cartoon/moments/        /cartoon/index.html   200
+/cartoon/contact         /cartoon/index.html   200
+/cartoon/contact/        /cartoon/index.html   200

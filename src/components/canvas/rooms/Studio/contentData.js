@@ -1,5 +1,5 @@
 /**
- * Studio Content Data — 森林·创作现场
+ * Studio Content Data — 骆沐辰·创作讲解
  * 视频塔内容:5 段视频 + 抖音手机入口。
  * 每段视频:frontTexture 为横版缩略图,paintedFrontTexture 同图(无手绘变体),
  * videoSrc 指向本地 mp4,url 为外部跳转链接(可为空)。
@@ -24,10 +24,10 @@ export const PLATFORM_CONFIG = {
 
 const RAW_CONTENT_DATA = [
     {
-        id: 'video-personal-site',
+        id: 'video-cosmic-explorer',
         platform: 'video',
-        title: '个人站搭建全流程',
-        description: '从零开始搭一个属于自己的个人站:结构、路由、上线。一个网站 · 项目案例,完整记录。',
+        title: '宇宙探索者讲解',
+        description: '我的代表作《宇宙探索者》讲解:3D 视图怎么做的、5 阶段游戏怎么设计、为什么用 React + Three.js。已经发布上线。',
         frontTexture: '/cartoon/media/thumbs/personal-site.webp',
         paintedFrontTexture: '/cartoon/media/thumbs/personal-site.webp',
         thumbnail: '/cartoon/media/thumbs/personal-site.webp',
@@ -39,10 +39,10 @@ const RAW_CONTENT_DATA = [
         duration: '01:24',
     },
     {
-        id: 'video-interactive-knowledge',
+        id: 'video-solar-system',
         platform: 'video',
-        title: '互动知识课堂',
-        description: '把课堂变成可以动手玩的知识现场:实时互动、即时反馈,学生不是在看,是在参与。',
+        title: '太阳系 3D 怎么做的',
+        description: '3D 太阳系场景:行星轨道用真实开普勒定律、缩放旋转用 OrbitControls、UI 用 drei 的 Text。已经能点击任意行星看介绍。',
         frontTexture: '/cartoon/media/thumbs/interactive-knowledge.webp',
         paintedFrontTexture: '/cartoon/media/thumbs/interactive-knowledge.webp',
         thumbnail: '/cartoon/media/thumbs/interactive-knowledge.webp',
@@ -54,10 +54,10 @@ const RAW_CONTENT_DATA = [
         duration: '02:08',
     },
     {
-        id: 'video-color-english',
+        id: 'video-5-stage',
         platform: 'video',
-        title: '色彩英语 · AI 演示',
-        description: '人工智能 + 英语课堂:用 AI 现场生成色彩单词卡片,孩子一边玩颜色一边学英语。',
+        title: '5 阶段闯关游戏设计思路',
+        description: '《宇宙探索者》里 5 阶段闯关游戏的设计思路:为什么先 2D 后 3D、为什么先收集后躲避、怎么让玩家有成就感。',
         frontTexture: '/cartoon/media/thumbs/color-english.webp',
         paintedFrontTexture: '/cartoon/media/thumbs/color-english.webp',
         thumbnail: '/cartoon/media/thumbs/color-english.webp',
@@ -69,10 +69,10 @@ const RAW_CONTENT_DATA = [
         duration: '01:47',
     },
     {
-        id: 'video-wechat-01',
+        id: 'video-vibe-coding',
         platform: 'video',
-        title: '课堂实录 · 作品课',
-        description: '微信视频号课堂实录:孩子们的作品上台时刻。每一届人走出教室时,手里都握着一样东西。',
+        title: 'Vibe Coding 怎么用',
+        description: '我平时怎么用 Vibe Coding 写代码:先描述想要的东西、让 AI 生成、再手动改。这是这个知识库的诞生方式。',
         frontTexture: '/cartoon/media/thumbs/wechat-01.webp',
         paintedFrontTexture: '/cartoon/media/thumbs/wechat-01.webp',
         thumbnail: '/cartoon/media/thumbs/wechat-01.webp',
@@ -84,10 +84,10 @@ const RAW_CONTENT_DATA = [
         duration: '01:45',
     },
     {
-        id: 'video-wechat-02',
+        id: 'video-wrc-recap',
         platform: 'video',
-        title: '课堂实录 · 编程课',
-        description: 'Python 课堂随拍:从一行代码到一份作品,学生互相看、互相改、互相鼓掌。',
+        title: 'WRC 2025 比赛回顾',
+        description: '2025 宜昌世界机器人大赛复盘:从准备到上场、从答辩到拿奖,一台智能小车的诞生记。',
         frontTexture: '/cartoon/media/thumbs/wechat-02.webp',
         paintedFrontTexture: '/cartoon/media/thumbs/wechat-02.webp',
         thumbnail: '/cartoon/media/thumbs/wechat-02.webp',
@@ -101,14 +101,14 @@ const RAW_CONTENT_DATA = [
     {
         id: 'douyin-home',
         platform: 'douyin',
-        title: '抖音主页 · 关注森林老师',
-        description: '持续分享课堂工具、学习资源与应用作品。点开跳转到抖音主页,看更多现场。',
+        title: '抖音主页 · 关注骆沐辰',
+        description: '持续分享我的 AI 编程日常、作品创作过程、比赛现场。点开跳转到抖音主页,看更多。',
         frontTexture: '/cartoon/media/qr/douyin.jpg',
         paintedFrontTexture: '/cartoon/media/qr/douyin.jpg',
         thumbnail: '/cartoon/media/qr/douyin.jpg',
         poster: '/cartoon/media/qr/douyin.jpg',
         videoSrc: '',
-        url: 'https://www.douyin.com/user/MS4wLjABAAAAxHHFo-1JZJ3GPL_HYbgUo6X7hN5jWrk5wJUYl42rgW0',
+        url: 'https://www.douyin.com/',
         date: '持续更新',
         views: '1.2w',
         duration: '—',

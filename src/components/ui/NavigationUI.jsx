@@ -217,6 +217,18 @@ const NavigationUI = () => {
         requestExit();
     };
 
+    const handleHomeClick = () => {
+        // Close any open panels first so they don't leak across the reload.
+        setIsMenuOpen(false);
+        setIsAudioMenuOpen(false);
+        setIsAchievementsOpen(false);
+        // Full reload gives the cleanest reset: entrance preloader, audio context,
+        // camera, scene state, all start fresh from the entrance doors.
+        if (typeof window !== 'undefined') {
+            window.location.reload();
+        }
+    };
+
     return (
         <div className="navigation-ui">
             {/* Global Achievement Popup */}
@@ -238,6 +250,19 @@ const NavigationUI = () => {
             {/* Right side controls - Only visible after entering */}
             {hasEntered && (
                 <div className={`nav-controls ${isMenuOpen || isAudioMenuOpen ? 'menu-open' : ''} ${isUIHidden ? 'ui-hidden' : ''}`}>
+                    {/* Home (返回主页) Button — reloads to fresh entrance */}
+                    <button
+                        className="nav-btn home-btn"
+                        onClick={handleHomeClick}
+                        aria-label="返回主页"
+                        title="返回主页"
+                    >
+                        <svg viewBox="0 0 24 24" className="icon-home">
+                            <path d="M3 11l9-8 9 8" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M5 10v10h14V10" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M10 20v-6h4v6" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
                     {/* Hamburger Menu Button */}
                     <button
                         className={`nav-btn hamburger-btn ${isMenuOpen ? 'open' : ''}`}

@@ -184,14 +184,14 @@ export const GALLERY_TEXTURES = [
         `/cartoon/textures/gallery/${name}.webp`,
         name === 'csslogo' ? `/cartoon/textures/gallery/css3logo_painted.webp` : `/cartoon/textures/gallery/${name}_painted.webp`
     ]),
-    // Real app screenshots (妫灄浣滃搧搴旂敤)
-    '/cartoon/media/apps/python-adventure.jpg',
-    '/cartoon/media/apps/class-system.jpg',
-    '/cartoon/media/apps/ai-classroom.jpg',
-    '/cartoon/media/apps/code-research.jpg',
-    '/cartoon/media/apps/typing.jpg',
-    '/cartoon/media/apps/sim-lab.jpg',
-    '/cartoon/media/apps/model-trainer.jpg',
+    // 骆沐辰的 7 个作品卡片
+    '/cartoon/media/apps/card-summit.jpg',
+    '/cartoon/media/apps/card-roses.jpg',
+    '/cartoon/media/apps/card-school.jpg',
+    '/cartoon/media/apps/card-tree.jpg',
+    '/cartoon/media/apps/card-calligraphy.jpg',
+    '/cartoon/media/apps/card-festival.jpg',
+    '/cartoon/media/apps/card-family.jpg',
 ];
 
 // Contact Room textures (loaded via useTexture / drei)
@@ -313,35 +313,34 @@ export const STUDIO_TEXTURES = [
     '/cartoon/textures/studio/tvfront_filmikprojektdlamultiego_painted.webp',
 ];
 
-// Moments Room textures (瀹炴媿鐓х墖)
+// Moments Room textures (骆沐辰成长掠影 · 23 张照片)
 export const MOMENTS_TEXTURES = [
-    // 12 gallery photos
-    '/cartoon/media/gallery/wrc7.jpg',
-    '/cartoon/media/gallery/python-course.jpg',
-    '/cartoon/media/gallery/cpp-course.jpg',
-    '/cartoon/media/gallery/robot-detail1.jpg',
-    '/cartoon/media/gallery/4e7cde1d67137f31dbbaceea09b3ba97.jpg',
-    '/cartoon/media/gallery/5532032ec1ecd25b5aab600c3c66653e.jpg',
-    '/cartoon/media/gallery/7ea7aec2c2fc24cdff315baf30e19994.jpg',
-    '/cartoon/media/gallery/bf42704d89c36b8f7175792f2c6406df.jpg',
-    '/cartoon/media/gallery/03e58ed3352bb2c5b6c34475e3ef5c05.jpg',
-    '/cartoon/media/gallery/11.jpg',
-    '/cartoon/media/gallery/4c034334db22d80ecae7cd665b142e62.jpg',
-    '/cartoon/media/gallery/ebe3db8e9e230e42fa4a3821dc906ca8.jpg',
-    // 6 scenes
-    '/cartoon/media/scenes/python-path.jpg',
-    '/cartoon/media/scenes/cpp-noi-path.jpg',
-    '/cartoon/media/scenes/ai-classroom-path.jpg',
-    '/cartoon/media/scenes/robotics-path.jpg',
-    '/cartoon/media/scenes/project-release-path.jpg',
-    '/cartoon/media/scenes/service-loop-path.jpg',
-    // 2 root photos
+    // 成长掠影 (23 photos)
+    '/cartoon/media/gallery/m01-toddler-truck.jpg',
+    '/cartoon/media/gallery/m02-preschool-buds.jpg',
+    '/cartoon/media/gallery/m03-preschool-rice.jpg',
+    '/cartoon/media/gallery/m04-preschool-yellow.jpg',
+    '/cartoon/media/gallery/m05-preschool-toddler.jpg',
+    '/cartoon/media/gallery/m06-preschool-balloons.jpg',
+    '/cartoon/media/gallery/m07-school-stage.jpg',
+    '/cartoon/media/gallery/m08-school-2022.jpg',
+    '/cartoon/media/gallery/m09-birthday-family.jpg',
+    '/cartoon/media/gallery/m10-doraemon-cake.jpg',
+    '/cartoon/media/gallery/m11-orange-grove.jpg',
+    '/cartoon/media/gallery/m12-rose-arch.jpg',
+    '/cartoon/media/gallery/m13-bench-sister.jpg',
+    '/cartoon/media/gallery/m14-calligraphy-front.jpg',
+    '/cartoon/media/gallery/m15-calligraphy-up.jpg',
+    '/cartoon/media/gallery/m16-mountain-dad.jpg',
+    '/cartoon/media/gallery/m17-tree-outfit.jpg',
+    '/cartoon/media/gallery/m18-spring-2026-1.jpg',
+    '/cartoon/media/gallery/m19-spring-2026-2.jpg',
+    '/cartoon/media/gallery/m20-cny-mall-2025.jpg',
+    '/cartoon/media/gallery/m21-cny-grandparents.jpg',
+    '/cartoon/media/gallery/m22-cny-drum.jpg',
+    '/cartoon/media/gallery/m23-shopping-trip.jpg',
+    // Avatar
     '/cartoon/media/photo-hero.jpg',
-    '/cartoon/media/photo-wrcc.jpg',
-    // 3 posters
-    '/cartoon/media/posters/personal-site.jpg',
-    '/cartoon/media/posters/interactive-knowledge.jpg',
-    '/cartoon/media/posters/color-english.jpg',
 ];
 
 // ============================================

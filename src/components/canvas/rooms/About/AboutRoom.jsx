@@ -25,10 +25,10 @@ export const AUDIO_SETTINGS = {
 // Story sections - positions define where each milestone appears
 // Using CHUNK_LENGTH to create looping story (every ~40 units restarts)
 const STORY_MILESTONES = [
-    { id: 'intro', position: [0, 0, -15], type: 'intro', title: '森林 SENLIN', subtitle: '创意教育 · 代码 · 作品' },
-    { id: 'awards', position: [0, 0, -55], type: 'awards', title: '数字足迹', subtitle: '6 年 · 1000+ 学生 · 120+ 作品' },
-    { id: 'journey', position: [0, 0, -95], type: 'journey', title: '教学路线', subtitle: 'Python · C++ · AI · 机器人' },
-    { id: 'skills', position: [0, 0, -135], type: 'skills', title: '技能清单', subtitle: '课堂里常用的技术工具' },
+    { id: 'intro', position: [0, 0, -15], type: 'intro', title: '骆沐辰', subtitle: 'AI 编程小创客 · 即将升五年级' },
+    { id: 'awards', position: [0, 0, -55], type: 'awards', title: '我的战绩', subtitle: '2025 宜昌锦标赛冠军 · 宇宙探索者上线' },
+    { id: 'journey', position: [0, 0, -95], type: 'journey', title: '学习路线', subtitle: 'Vibe Coding · 网站 · 3D · 游戏 · 机器人' },
+    { id: 'skills', position: [0, 0, -135], type: 'skills', title: '技能清单', subtitle: 'React · Three.js · Python · Arduino' },
 ];
 
 const AboutRoom = ({ showRoom, onReady, isExiting, isWarmup }) => {

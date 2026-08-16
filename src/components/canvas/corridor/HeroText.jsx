@@ -56,19 +56,19 @@ const HeroText = ({ position = [0, 0.3, 0] }) => {
 
     // Letter positions for ITOM split effect
     const letters = useMemo(() => [
-        { char: 'S', baseX: -1.45, splitDir: -1.8, delay: 0 },
-        { char: 'E', baseX: -0.87, splitDir: -1.0, delay: 0 },
-        { char: 'N', baseX: -0.29, splitDir: -0.4, delay: 0 },
-        { char: 'L', baseX: 0.29, splitDir: 0.4, delay: 0 },
-        { char: 'I', baseX: 0.87, splitDir: 1.0, delay: 0 },
+        { char: 'M', baseX: -1.45, splitDir: -1.8, delay: 0 },
+        { char: 'U', baseX: -0.87, splitDir: -1.0, delay: 0 },
+        { char: 'C', baseX: -0.29, splitDir: -0.4, delay: 0 },
+        { char: 'H', baseX: 0.29, splitDir: 0.4, delay: 0 },
+        { char: 'E', baseX: 0.87, splitDir: 1.0, delay: 0 },
         { char: 'N', baseX: 1.45, splitDir: 1.8, delay: 0 },
     ], []);
 
     // Tagline words for split effect (Chinese) - coherent phrase
     const taglineWords = useMemo(() => [
-        { text: '在森林', baseX: -1.35, splitDir: -1.0, delay: 0 },
+        { text: '在代码', baseX: -1.35, splitDir: -1.0, delay: 0 },
         { text: '里', baseX: 0, splitDir: 0, delay: 0 },
-        { text: '创作', baseX: 1.35, splitDir: 1.0, delay: 0 },
+        { text: '探索', baseX: 1.35, splitDir: 1.0, delay: 0 },
     ], []);
 
     // Animation loop

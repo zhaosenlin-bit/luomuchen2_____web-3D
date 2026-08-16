@@ -36,69 +36,66 @@ export const GALLERY_INTERACTION_AUDIO_SETTINGS = {
 // Define the unique projects and their textures
 const FALLBACK_PROJECTS = [
     {
-        id: 'python-adventure',
-        title: 'Python 探险',
-        front: '/cartoon/media/apps/python-adventure.jpg',
-        painted: '/cartoon/media/apps/python-adventure.jpg',
-        url: 'https://game.codebn.cn/',
-        description: '从不会写代码到说"太难"？Python 入门像是一座一座小岛，走完每座小岛带走的作品，慢慢长出来。',
-        techStack: []
-    },
-    {
-        id: 'class-system',
-        title: 'class 教学系统',
-        front: '/cartoon/media/apps/class-system.jpg',
-        painted: '/cartoon/media/apps/class-system.jpg',
-        url: 'https://class.codebn.cn/',
-        description: '上完一节课，交上作业，预约下一次课，都能在这里。老师把课堂、教研、辅导全都收拢在这，老师能全心上课。',
-        techStack: []
-    },
-    {
-        id: 'ai-classroom',
-        title: 'AI 互动课堂',
-        front: '/cartoon/media/apps/ai-classroom.jpg',
-        painted: '/cartoon/media/apps/ai-classroom.jpg',
-        url: 'https://ai.codebn.cn/',
-        description: '让这里 AI 不是只能听说看的新鲜事。学生会拿着他们自己做的 AI 变成可以动手、可以对话、可以交流的伙伴。',
-        techStack: []
-    },
-    {
-        id: 'code-research',
-        title: 'Code Research',
-        front: '/cartoon/media/apps/code-research.jpg',
-        painted: '/cartoon/media/apps/code-research.jpg',
-        // The old codebn.cn/code-research endpoint currently returns 404.
+        id: 'cosmic-explorer',
+        title: '宇宙探索者',
+        front: '/cartoon/media/apps/card-summit.jpg',
+        painted: '/cartoon/media/apps/card-summit.jpg',
         url: '',
-        description: '不是为了学生做研发的镜头。他们自己提作品、自己记笔记、自己上讲台讲故事，都在这里被记住。',
+        description: '我的代表作。3D 太阳系 + 5 阶段闯关游戏,用 React + Three.js 做的,已经独立完成并发布上线。',
         techStack: []
     },
     {
-        id: 'typing-lab',
-        title: '启航打字',
-        front: '/cartoon/media/apps/typing.jpg',
-        painted: '/cartoon/media/apps/typing.jpg',
-        url: 'https://game.codebn.cn/typing/index.html',
-        description: '从不会的人挑起的打字基础。上台就是几十个字符的飞机花朵，学生打着打着指头越来越熟练。',
-        techStack: []
-    },
-    {
-        id: 'sim-lab',
-        title: '3D 模拟实验室',
-        front: '/cartoon/media/apps/sim-lab.jpg',
-        painted: '/cartoon/media/apps/sim-lab.jpg',
-        // The old codebn.cn/sim-lab endpoint currently returns 404.
+        id: 'solar-system',
+        title: '太阳系 3D',
+        description: '3D 太阳系场景,鼠标拖动旋转,行星按真实轨道运行,可以点击任意行星看名字。',
+        front: '/cartoon/media/apps/card-roses.jpg',
+        painted: '/cartoon/media/apps/card-roses.jpg',
         url: '',
-        description: '从比较生动的实验站。抽签的算法变成好看的动画，学生不只是看，是动手虚拟机器里的一部分。',
         techStack: []
     },
     {
-        id: 'model-trainer',
-        title: '模型训练',
-        front: '/cartoon/media/apps/model-trainer.jpg',
-        painted: '/cartoon/media/apps/model-trainer.jpg',
-        // The old codebn.cn/model-trainer endpoint currently returns 404.
+        id: '5-stage-game',
+        title: '5 阶段闯关游戏',
+        front: '/cartoon/media/apps/card-school.jpg',
+        painted: '/cartoon/media/apps/card-school.jpg',
         url: '',
-        description: '学生花上几个小时，看模型的怎么怎么不说？逐步变得明白。',
+        description: '《宇宙探索者》里的小游戏:第一关收集资源、第二关躲避小行星、第三关解谜、第四关加速飞行、第五关到达新星球。',
+        techStack: []
+    },
+    {
+        id: 'knowledge-base',
+        title: '知识库',
+        front: '/cartoon/media/apps/card-tree.jpg',
+        painted: '/cartoon/media/apps/card-tree.jpg',
+        url: '',
+        description: '就是你正在看的这个网站。3D 走廊 + 6 个房间,用 React + Three.js + Vibe Coding 做的。',
+        techStack: []
+    },
+    {
+        id: 'personal-site',
+        title: '个人站',
+        front: '/cartoon/media/apps/card-calligraphy.jpg',
+        painted: '/cartoon/media/apps/card-calligraphy.jpg',
+        url: '',
+        description: '我的个人主页,介绍我自己、作品、学习方向。React + TypeScript 写的。',
+        techStack: []
+    },
+    {
+        id: 'wrc-2025',
+        title: 'WRC 2025 参赛',
+        front: '/cartoon/media/apps/card-festival.jpg',
+        painted: '/cartoon/media/apps/card-festival.jpg',
+        url: '',
+        description: '2025 宜昌世界机器人大赛参赛作品。智能识别 + 自动控制 + 现场答辩。拿到了一等奖。',
+        techStack: []
+    },
+    {
+        id: 'mental-health',
+        title: '心理健康 × 科技',
+        front: '/cartoon/media/apps/card-family.jpg',
+        painted: '/cartoon/media/apps/card-family.jpg',
+        url: '',
+        description: '把心理健康和科技结合的小项目,用 Three.js 做一个能让人放松的 3D 场景。',
         techStack: []
     },
 ]

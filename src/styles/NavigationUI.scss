@@ -155,6 +155,20 @@
 
 }
 
+// === HOME BUTTON (返回主页) ===
+.home-btn {
+    // subtle wiggle on hover so it feels distinct from the other nav buttons
+    &:hover {
+        animation: homeBob 0.6s ease-in-out;
+    }
+
+    @keyframes homeBob {
+        0%, 100% { transform: translateY(-2px) rotate(0deg); }
+        25%      { transform: translateY(-3px) rotate(-3deg); }
+        75%      { transform: translateY(-3px) rotate(3deg); }
+    }
+}
+
 // === HAMBURGER BUTTON ===
 .hamburger-btn {
     .hamburger-icon {

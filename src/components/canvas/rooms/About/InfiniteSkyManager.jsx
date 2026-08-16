@@ -356,7 +356,7 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 font="/cartoon/fonts/ZCOOLKuaiLe-Regular.ttf"
                 fontSize={1.6}
             >
-                森林 SENLIN
+                骆沐辰 MUCHEN
             </Text>
 
             {/* Subtitle - Brand (spreads right) */}
@@ -369,7 +369,7 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 anchorY="middle"
                 font="/cartoon/fonts/ZCOOLKuaiLe-Regular.ttf"
             >
-                创意教育 · 代码 · 作品
+                AI 编程 · 作品 · 探索
             </Text>
 
             {/* Avatar on cloud - floating + spreads up-left */}
@@ -393,7 +393,7 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 font="/cartoon/fonts/ZCOOLKuaiLe-Regular.ttf"
                 fontSize={0.45}
             >
-                我是森林,一位手艺人出身的教练。            </Text>
+                我是骆沐辰,喜欢用 AI 编程做作品的小创客。    </Text>
 
             {/* Motto - Line 2 (spreads left) */}
             <Text
@@ -405,7 +405,7 @@ const IntroMilestone = ({ z, scrollProgressRef }) => {
                 font="/cartoon/fonts/ZCOOLKuaiLe-Regular.ttf"
                 fontSize={0.45}
             >
-                多年来,我一直在教 Python、C++、Web、AI 与机器人。            </Text>
+                我的 5 个方向、Vibe Coding、网站、3D、游戏、机器人。            </Text>
         </group>
     );
 };

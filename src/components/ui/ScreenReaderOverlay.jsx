@@ -12,10 +12,10 @@ import '../../styles/ScreenReaderOverlay.scss';
 const ROOM_LABELS = {
     about: '关于我',
     practice: '教学方向',
-    gallery: '作品应用',
-    studio: '创作现场',
-    moments: '掠影照片',
-    contact: '联系我',
+    gallery: '我的作品',
+    studio: '创作讲解',
+    moments: '成长掠影',
+    contact: '联系方式',
 };
 
 const ROOM_DESCRIPTIONS = {
@@ -23,7 +23,7 @@ const ROOM_DESCRIPTIONS = {
     practice: 'Python、C++、Web、AI 与机器人等教学方向与课程路线。',
     gallery: '我的真实作品与应用,点击卡片可访问在线链接。',
     studio: '视频与作品:个人站搭建、互动知识课堂、色彩英语、AI 演示与课堂实录。',
-    moments: '六年教学现场的照片墙,点击可查看大图。',
+    moments: '比赛现场、上课日常、作品发布,跟同学老师在一起的瞬间。',
     contact: '联系方式:微信扫码、抖音主页、邮箱、GitHub、电话与 B 站。',
 };
 
@@ -38,11 +38,11 @@ const ScreenReaderOverlay = () => {
             </a>
 
             <nav id="sr-main-nav" className="sr-only" aria-label="作品集房间导航">
-                <h1>森林 · Senlin 创意教育个人站</h1>
+                <h1>骆沐辰的知识库 · AI 编程小创客</h1>
                 <h2>房间导航</h2>
 
                 {!hasEntered && (
-                    <p>欢迎来到森林的 3D 交互个人站。点击或按回车进入走廊。</p>
+                    <p>欢迎来到骆沐辰的 3D 知识库。点击或按回车进入走廊。</p>
                 )}
 
                 {hasEntered && !isInRoom && (

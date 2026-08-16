@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
     'background: transparent'
   );
   console.log(
-    '%c森林 Senlin %c创意教育 · 代码 · 作品',
+    '%c骆沐辰 %cAI 编程小创客 · 宇宙探索者',
     'font-weight: bold; color: #2d6cb5; font-size: 14px;',
     'color: #666; font-size: 14px;'
   );

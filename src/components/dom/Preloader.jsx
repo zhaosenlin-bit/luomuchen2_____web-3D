@@ -250,16 +250,16 @@ const Preloader = ({ onComplete, ready }) => {
 
   useEffect(() => {
     const distance = targetProgress - displayProgressRef.current;
-    let duration = 0.5;
+    let duration = 0.3;
 
     if (distance > 60) {
-      duration = 1.5;
-    } else if (distance > 30) {
-      duration = 1.0;
-    } else if (distance > 10) {
       duration = 0.6;
-    } else if (distance > 0) {
+    } else if (distance > 30) {
       duration = 0.4;
+    } else if (distance > 10) {
+      duration = 0.25;
+    } else if (distance > 0) {
+      duration = 0.15;
     }
 
     gsap.to(trackerRef.current, {
@@ -301,6 +301,37 @@ const Preloader = ({ onComplete, ready }) => {
     }
   }, [ready]);
 
+  // Hard timeout: never wait longer than 800ms for the 3D scene to report ready.
+  // Bypass sceneReady gate, force the visual counter to 100%, stop pencil loop, and exit.
+  useEffect(() => {
+    const HARD_CAP_MS = 800;
+    const maxLoadTimer = setTimeout(() => {
+      if (exitStarted.current) return;
+      // Stop pencil loop immediately
+      if (pencilSoundRef.current) {
+        pencilSoundRef.current.stop();
+        pencilSoundRef.current = null;
+      }
+      // Jump visual counter to 100% in place (no GSAP animation)
+      trackerRef.current.val = 100;
+      displayProgressRef.current = 100;
+      if (textLeftRef.current) textLeftRef.current.innerText = '100%';
+      if (textRightRef.current) textRightRef.current.innerText = '100%';
+      if (pathLeftRef.current) pathLeftRef.current.style.strokeDashoffset = 0;
+      if (pathRightRef.current) pathRightRef.current.style.strokeDashoffset = 0;
+      // Bypass sceneReady gate
+      readyRef.current = true;
+      // Force-active=false so target stays at 100 (not 90)
+      setActive(false);
+      setRealProgress(100);
+      setTargetProgress(100);
+      // Trigger exit
+      exitStarted.current = true;
+      startExit();
+    }, HARD_CAP_MS);
+    return () => clearTimeout(maxLoadTimer);
+  }, []);
+
   const startExit = () => {
     exitStarted.current = true;
 
@@ -326,28 +357,28 @@ const Preloader = ({ onComplete, ready }) => {
     });
 
     // 1. Quick pause before tear
-    tl.to({}, { duration: 0.1 });
+    tl.to({}, { duration: 0.05 });
 
     // 2. Tear Apart
     tl.to(leftHalfRef.current, {
       xPercent: -100,
       rotation: -2,
-      duration: 1.8,
+      duration: 0.35,
       ease: "power3.inOut"
     }, 'tear');
 
     tl.to(rightHalfRef.current, {
       xPercent: 100,
       rotation: 2,
-      duration: 1.8,
+      duration: 0.35,
       ease: "power3.inOut"
     }, 'tear');
 
     // 3. Fade container
     tl.to(containerRef.current, {
       opacity: 0,
-      duration: 0.5
-    }, '-=0.5');
+      duration: 0.2
+    }, '-=0.15');
   };
 
   if (isDone) return null;

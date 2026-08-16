@@ -1,4 +1,4 @@
-node_modules/
+﻿node_modules/
 dist/
 tmp/
 .wrangler/
@@ -6,3 +6,10 @@ tmp/
 tmp-*.png
 *.local
 *.zip
+
+# Local dev / scratch files
+start-dev.bat
+*.cjs.tmp
+_font_test.png
+edit-*.cjs
+sign_senlin.webp.tmp

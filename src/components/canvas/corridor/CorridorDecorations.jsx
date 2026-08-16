@@ -1,5 +1,5 @@
-import { useMemo, useState, useRef, useEffect } from 'react';
-import { useTexture, Text } from '@react-three/drei';
+import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
+import { useTexture, Text, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
@@ -121,7 +121,7 @@ const PictureContent = ({ imagePath, imagePaintedPath, width, height, isPainted 
     );
 };
 
-const InspectableFrame = ({ frame, wallX, frameTexture, framePaintedTexture, CABIN_SKETCH_URL }) => {
+const InspectableFrame = ({ frame, wallX, frameTexture, framePaintedTexture, CABIN_SKETCH_URL, isSaved, onHoverChange }) => {
     const { viewport } = useThree();
     const groupRef = useRef();
     const frameMaterialRef = useRef();
@@ -154,10 +154,18 @@ const InspectableFrame = ({ frame, wallX, frameTexture, framePaintedTexture, CAB
         else document.body.style.cursor = 'auto';
     }, [isHovered, isMobile]);
 
+    const isPainted = !isMobile && (isHovered || isSaved);
+
+    // Notify parent whenever hover state flips (so it can show/hide Save button).
+    useEffect(() => {
+        onHoverChange?.(frame.id, isHovered);
+        return () => onHoverChange?.(frame.id, false);
+    }, [isHovered, frame.id, onHoverChange]);
+
     useEffect(() => {
         if (!frameMaterialRef.current) return;
 
-        const shouldBePainted = isHovered;
+        const shouldBePainted = isPainted;
 
         if (shouldBePainted) {
             if (hideDelayRef.current) hideDelayRef.current.kill();
@@ -185,7 +193,7 @@ const InspectableFrame = ({ frame, wallX, frameTexture, framePaintedTexture, CAB
         return () => {
             if (hideDelayRef.current) hideDelayRef.current.kill();
         };
-    }, [isHovered]);
+    }, [isPainted]);
 
     return (
         <group
@@ -248,7 +256,7 @@ const InspectableFrame = ({ frame, wallX, frameTexture, framePaintedTexture, CAB
                     imagePaintedPath={!isTouch ? frame.imagePainted : null}
                     width={frame.imageWidth || frame.width * 0.7}
                     height={frame.imageHeight || frame.height * 0.7}
-                    isPainted={isHovered}
+                    isPainted={isPainted}
                 />
             )}
 
@@ -286,6 +294,40 @@ const CorridorDecorations = ({
     const wallX = corridorWidth / 2;
     const floorY = -corridorHeight / 2;
     const ceilingY = corridorHeight / 2;
+
+    // =============================================
+    // SAVE BUTTON STATE (frame paint persistence)
+    // =============================================
+    // hoveredFrameIds: set of frame.id currently being hovered (transient).
+    // savedFrameIds: set of frame.id that have been "saved" — they stay
+    // painted even after the mouse leaves.
+    const [hoveredFrameIds, setHoveredFrameIds] = useState(() => new Set());
+    const [savedFrameIds, setSavedFrameIds] = useState(() => new Set());
+
+    const handleFrameHoverChange = useCallback((frameId, isHovering) => {
+        setHoveredFrameIds((prev) => {
+            const next = new Set(prev);
+            if (isHovering) next.add(frameId);
+            else next.delete(frameId);
+            // Skip update if unchanged to avoid re-render churn.
+            if (next.size === prev.size && [...next].every((id) => prev.has(id))) return prev;
+            return next;
+        });
+    }, []);
+
+    const handleSaveClick = useCallback(() => {
+        setSavedFrameIds((prev) => {
+            const next = new Set(prev);
+            hoveredFrameIds.forEach((id) => next.add(id));
+            return next;
+        });
+    }, [hoveredFrameIds]);
+
+    const isFrameSaved = useCallback(
+        (frameId) => savedFrameIds.has(frameId),
+        [savedFrameIds]
+    );
+
 
     // =============================================
     // TEKSTURY DEKORACJI
@@ -383,7 +425,7 @@ const CorridorDecorations = ({
             image: '/cartoon/media/handdrawn-tech/frame-debug-notes.png',
             imageWidth: frameInnerWidth,
             imageHeight: frameInnerHeight,
-            signature: '森路 · Senlin',
+            signature: '沐辰 · Muchen',
             signatureX: 0,
             signatureY: -0.4,
             signatureSize: 0.001,
@@ -496,6 +538,20 @@ const CorridorDecorations = ({
             };
         });
     }, [doorPositions, frames, zOffset]);
+
+    // Z midpoint of currently hovered frames — used to anchor the Save button.
+    const hoveredAnchorZ = useMemo(() => {
+        if (hoveredFrameIds.size === 0) return null;
+        let sum = 0;
+        let count = 0;
+        mountedFrames.forEach((f) => {
+            if (hoveredFrameIds.has(f.id)) {
+                sum += f.z;
+                count += 1;
+            }
+        });
+        return count > 0 ? sum / count : null;
+    }, [hoveredFrameIds, mountedFrames]);
 
     // =============================================
     // STOLIK (TABLE)
@@ -654,8 +710,58 @@ const CorridorDecorations = ({
                     frameTexture={frameTexture}
                     framePaintedTexture={framePaintedTexture}
                     CABIN_SKETCH_URL={CABIN_SKETCH_URL}
+                    isSaved={isFrameSaved(frame.id)}
+                    onHoverChange={handleFrameHoverChange}
                 />
             ))}
+
+            {/* === SAVE BUTTON (floats near hovered frames) === */}
+            {hoveredAnchorZ !== null && (
+                <Html
+                    position={[0, ceilingY - 0.45, hoveredAnchorZ + 1.4]}
+                    center
+                    distanceFactor={6}
+                    zIndexRange={[120, 0]}
+                    style={{ pointerEvents: 'auto' }}
+                >
+                    <button
+                        type="button"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleSaveClick();
+                        }}
+                        style={{
+                            pointerEvents: 'auto',
+                            cursor: 'pointer',
+                            fontFamily: '"Cabin Sketch", "Microsoft YaHei", "Comic Sans MS", sans-serif',
+                            fontSize: '20px',
+                            fontWeight: 700,
+                            color: '#3a2a1a',
+                            padding: '10px 22px',
+                            border: '2px solid #6b4a2b',
+                            borderRadius: '14px',
+                            background: 'linear-gradient(180deg, #fff7e6 0%, #f4e3c1 100%)',
+                            boxShadow: '0 4px 12px rgba(80,50,20,0.25), inset 0 0 0 2px rgba(255,255,255,0.6)',
+                            letterSpacing: '0.15em',
+                            textShadow: '0 1px 0 rgba(255,255,255,0.7)',
+                            transform: 'translateZ(0) rotate(-1.5deg)',
+                            transition: 'transform 120ms ease-out, box-shadow 120ms ease-out',
+                            userSelect: 'none',
+                            whiteSpace: 'nowrap',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateZ(0) rotate(-1.5deg) scale(1.06)';
+                            e.currentTarget.style.boxShadow = '0 6px 18px rgba(80,50,20,0.35), inset 0 0 0 2px rgba(255,255,255,0.7)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateZ(0) rotate(-1.5deg)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(80,50,20,0.25), inset 0 0 0 2px rgba(255,255,255,0.6)';
+                        }}
+                    >
+                        🖍 保存颜色
+                    </button>
+                </Html>
+            )}
 
             {/* === SZAFKA (CABINET) === */}
             {/* Prosty box jako placeholder, naprzeciwko drzwi About (Left -48) -> wi鑷媍 szafka na Right -51 */}

@@ -8,48 +8,48 @@ import GalleryRoom from '../Gallery/GalleryRoom';
 
 const PRACTICE_PROJECTS = [
     {
-        id: 'teaching',
-        title: '教学现场',
-        front: '/cartoon/media/gallery/4e7cde1d67137f31dbbaceea09b3ba97.jpg',
-        painted: '/cartoon/media/gallery/4e7cde1d67137f31dbbaceea09b3ba97.jpg',
+        id: 'vibe',
+        title: 'Vibe Coding',
+        front: '/cartoon/media/scenes/vibe-coding.jpg',
+        painted: '/cartoon/media/scenes/vibe-coding.jpg',
         url: '',
-        description: '一个课堂、一块黑板、一位创作者。课堂里录影片、学生作品挂墙上，每次有人都上台。',
+        description: '用自然语言驱动 AI 编程。我的知识库、《宇宙探索者》网站都是这样做的——我描述想要的东西，AI 帮我写代码。',
         techStack: []
     },
     {
-        id: 'python',
-        title: 'Python · 项目实战',
-        front: '/cartoon/media/scenes/python-path.jpg',
-        painted: '/cartoon/media/scenes/python-path.jpg',
-        url: 'https://game.codebn.cn/',
-        description: '从一行代码到一份作品。Python 入门像是一座一座小岛，每座岛上都有任务、有同伴、有可带走的作品。',
-        techStack: []
-    },
-    {
-        id: 'cpp',
-        title: 'C++ · NOI / CSP',
-        front: '/cartoon/media/scenes/cpp-noi-path.jpg',
-        painted: '/cartoon/media/scenes/cpp-noi-path.jpg',
+        id: 'web',
+        title: '网站开发',
+        front: '/cartoon/media/scenes/web-dev.jpg',
+        painted: '/cartoon/media/scenes/web-dev.jpg',
         url: '',
-        description: '从爱好走向系统。从一道题、一次训练，走到能上台面的自己，从爱好到成就感。',
+        description: 'React + Vite + TypeScript 做的网站。《宇宙探索者》就是用这套技术栈做的，已经独立完成并发布上线。',
         techStack: []
     },
     {
-        id: 'ai',
-        title: '人工智能课堂',
-        front: '/cartoon/media/scenes/ai-classroom-path.jpg',
-        painted: '/cartoon/media/scenes/ai-classroom-path.jpg',
-        url: 'https://ai.codebn.cn/',
-        description: '让 AI 走下神坛，变成孩子工具箱里的一个工具。AI 走进课堂、与学生谈生活、现场展示与试验。',
+        id: 'threeD',
+        title: '3D · Three.js',
+        front: '/cartoon/media/scenes/three-d.jpg',
+        painted: '/cartoon/media/scenes/three-d.jpg',
+        url: '',
+        description: 'Three.js + WebGL 做的 3D 场景。这个知识库本身就是 3D 走廊,推门进入每个房间都能看到内容。',
         techStack: []
     },
     {
-        id: 'robotics',
+        id: 'game',
+        title: '游戏设计',
+        front: '/cartoon/media/scenes/game-design.jpg',
+        painted: '/cartoon/media/scenes/game-design.jpg',
+        url: '',
+        description: '《宇宙探索者》里 5 阶段闯关游戏:先 2D 后 3D、先收集后躲避,让玩家有成就感。',
+        techStack: []
+    },
+    {
+        id: 'robot',
         title: '机器人',
-        front: '/cartoon/media/gallery/wrc7.jpg',
-        painted: '/cartoon/media/gallery/wrc7.jpg',
+        front: '/cartoon/media/scenes/robot.jpg',
+        painted: '/cartoon/media/scenes/robot.jpg',
         url: '',
-        description: '从一台机器到一场比赛。拼装、调试、上台。孩子学到的远不止是机器。',
+        description: 'Arduino + 拼装 + 调试,准备 2025 WRC 世界机器人大赛。目标是做一台能识别环境的智能小车。',
         techStack: []
     },
 ];

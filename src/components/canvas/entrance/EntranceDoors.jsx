@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Text, useTexture } from '@react-three/drei';
+import { Text, useTexture, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import '../shaders/RevealMaterial'; // Registers alpha-discard reveal shader
@@ -40,6 +40,9 @@ const EntranceDoors = ({
     const [isHovered, setIsHovered] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isWindowHovered, setIsWindowHovered] = useState(false);
+    // Save-button state: which entrance element is "frozen" in its hover-revealed
+    // state even after the mouse leaves. Values: null | 'doors' | 'window'.
+    const [savedEntranceId, setSavedEntranceId] = useState(null);
     const windowAvatarRef = useRef();
     const windowAvatarMaterialRef = useRef();
     const { camera, gl } = useThree();
@@ -402,6 +405,13 @@ const EntranceDoors = ({
 
     const handlePointerLeave = () => {
         if (isOpen || isAnimating || isMobile) return;
+        // If the user "saved" the door hover, keep the doors open + painted layer
+        // revealed even after the mouse leaves.
+        if (savedEntranceId === 'doors') {
+            setIsHovered(false);
+            document.body.style.cursor = "auto";
+            return;
+        }
         setIsHovered(false);
         document.body.style.cursor = "auto";
 
@@ -566,6 +576,12 @@ const EntranceDoors = ({
 
     const handleWindowLeave = (e) => {
         e.stopPropagation();
+        // If the user "saved" the window hover, keep the avatar visible.
+        if (savedEntranceId === 'window') {
+            setIsWindowHovered(false);
+            document.body.style.cursor = "auto";
+            return;
+        }
         setIsWindowHovered(false);
         document.body.style.cursor = "auto";
 
@@ -600,9 +616,36 @@ const EntranceDoors = ({
 
 
     const pathWidth = frameWidth + 0.4;
-    // New texture is 1005x2317 (approx 1:2.3 ratio). 
+    // New texture is 1005x2317 (approx 1:2.3 ratio).
     // Width 2.44 * 2.3 = ~5.6 height.
     const pathLength = 5.62;
+
+    // Derived flags used by both the hover effects and the Save button.
+    // doorsRevealed: include savedEntranceId so saved doors stay open + painted.
+    const doorsRevealed = !isOpen && !isAnimating && (isHovered || savedEntranceId === 'doors');
+    const windowRevealed = isWindowHovered || savedEntranceId === 'window';
+
+    // The button is shown whenever the user can act — either hover-engaged
+    // (so they can save), or already saved (so they can un-save).
+    const showEntranceSaveButton = isHovered || isWindowHovered || savedEntranceId !== null;
+
+    // Decide which element gets saved when the user clicks the button.
+    // Priority: currently hovered element first; fall back to whatever is saved.
+    const handleEntranceSaveClick = () => {
+        if (isHovered && !isWindowHovered) {
+            // Doors hovered — toggle saved state for doors.
+            setSavedEntranceId((prev) => (prev === 'doors' ? null : 'doors'));
+        } else if (isWindowHovered && !isHovered) {
+            // Window hovered — toggle saved state for window.
+            setSavedEntranceId((prev) => (prev === 'window' ? null : 'window'));
+        } else if (isHovered && isWindowHovered) {
+            // Both hovered at once — toggle doors (more central target).
+            setSavedEntranceId((prev) => (prev === 'doors' ? null : 'doors'));
+        } else if (savedEntranceId !== null) {
+            // Nothing hovered but something is saved — clear the save.
+            setSavedEntranceId(null);
+        }
+    };
 
     return (
         <group ref={groupRef} position={[position[0], 0, position[2]]}>
@@ -660,72 +703,72 @@ const EntranceDoors = ({
             {/* Floating in front of wall items (z=1.5) for visibility */}
             
             {/* Top-left: ai chip (left of sign, above tree top) */}
-            <mesh position={[-2.95, wallCenterY + facadeYOffset + 1.75, 1.5]}>
+            <mesh position={[-2.95, wallCenterY + facadeYOffset + 1.75, 1.5]} renderOrder={30}>
                 <planeGeometry args={[0.78, 0.78]} />
                 <meshBasicMaterial color="#ffffff"
                     map={aiChipSketchTexture}
                     transparent={true}
-                    alphaTest={0.01}
+                    alphaTest={0.05}
                     opacity={0.8}
                     depthWrite={false}
                 />
             </mesh>
             
             {/* Top-right: terminal (right of sign, above window) */}
-            <mesh position={[2.8, wallCenterY + facadeYOffset + 1.75, 1.5]}>
+            <mesh position={[2.8, wallCenterY + facadeYOffset + 1.75, 1.5]} renderOrder={30}>
                 <planeGeometry args={[1.08, 0.72]} />
                 <meshBasicMaterial color="#ffffff"
                     map={terminalSketchTexture}
                     transparent={true}
-                    alphaTest={0.01}
+                    alphaTest={0.05}
                     opacity={0.78}
                     depthWrite={false}
                 />
             </mesh>
             
             {/* Above sign: code symbol (between sign top and ceiling) */}
-            <mesh position={[0.05, wallCenterY + facadeYOffset + 2.75, 1.5]}>
+            <mesh position={[0.05, wallCenterY + facadeYOffset + 2.75, 1.5]} renderOrder={30}>
                 <planeGeometry args={[0.58, 0.58]} />
                 <meshBasicMaterial color="#ffffff"
                     map={codeSymbolSketchTexture}
                     transparent={true}
-                    alphaTest={0.01}
+                    alphaTest={0.05}
                     opacity={0.76}
                     depthWrite={false}
                 />
             </mesh>
             
             {/* Mid-left: neural net (between door and tree, mid height) */}
-            <mesh position={[-1.45, wallCenterY + facadeYOffset - 0.2, 1.5]}>
+            <mesh position={[-1.45, wallCenterY + facadeYOffset - 0.2, 1.5]} renderOrder={30}>
                 <planeGeometry args={[0.74, 0.74]} />
                 <meshBasicMaterial color="#ffffff"
                     map={neuralNetSketchTexture}
                     transparent={true}
-                    alphaTest={0.01}
+                    alphaTest={0.05}
                     opacity={0.76}
                     depthWrite={false}
                 />
             </mesh>
             
             {/* Mid-right: python (between door and window, mid height) */}
-            <mesh position={[1.55, wallCenterY + facadeYOffset - 0.18, 1.5]}>
+            <mesh position={[1.55, wallCenterY + facadeYOffset - 0.18, 1.5]} renderOrder={30}>
                 <planeGeometry args={[0.66, 0.8]} />
                 <meshBasicMaterial color="#ffffff"
                     map={pythonSketchTexture}
                     transparent={true}
-                    alphaTest={0.01}
+                    alphaTest={0.05}
                     opacity={0.76}
                     depthWrite={false}
                 />
             </mesh>
             
             {/* Bottom-left: avatar (left of door, near cat level) */}
-            <mesh position={[-2.25, wallCenterY + facadeYOffset - 1.2, 1.5]}>
+            <mesh position={[-2.25, wallCenterY + facadeYOffset - 1.2, 1.5]} renderOrder={30}>
                 <planeGeometry args={[0.62, 0.62]} />
                 <meshBasicMaterial color="#ffffff"
                     map={avatarSketchTexture}
                     transparent={true}
-                    alphaTest={0.01}
+                    alphaTest={0.05}
                     opacity={0.78}
                     depthWrite={false}
                 />
@@ -1075,13 +1118,14 @@ const EntranceDoors = ({
 
             {/* TREE & MOUSE (Left Side) */}
             <group position={[-2.9, floorY + 2.7, 1]}>
-                {/* Tree */}
-                <mesh position={[0, 0, 0]}>
+                {/* Tree — renderOrder=20 so it draws BEFORE the wall sketches (renderOrder=30)
+                    and stays cleanly behind the neural net / ai chip / etc. */}
+                <mesh position={[0, 0, 0]} renderOrder={20}>
                     <planeGeometry args={[6, 8]} />
                     <meshBasicMaterial color="#e0e0e0"
                         map={treeTexture}
                         transparent={true}
-                        alphaTest={0.01}
+                        alphaTest={0.05}
                         depthWrite={false}
                     />
                 </mesh>
@@ -1093,27 +1137,75 @@ const EntranceDoors = ({
                 {/* Group Position shift: (-0.01, 0.02) + (0.351, -0.456) = (0.341, -0.436) */}
                 <group ref={mousePivotRef} position={[0.341, 0.02 - 0.456, 0]}>
                     {/* Mesh moves opposite to pivot offset to keep visual position */}
-                    <mesh position={[-0.351, 0.456, 0]}>
+                    <mesh position={[-0.351, 0.456, 0]} renderOrder={25}>
                         <planeGeometry args={[6, 8]} />
                         <meshBasicMaterial color="#e0e0e0"
                             map={mouseTexture}
                             transparent={true}
-                            alphaTest={0.01}
+                            alphaTest={0.05}
                             depthWrite={false}
                         />
                     </mesh>
                 </group>
             </group>
 
+            {/* === SAVE BUTTON (entrance: doors + window) === */}
+            {showEntranceSaveButton && (
+                <Html
+                    position={[0, wallCenterY + facadeYOffset + 3.4, 1.5]}
+                    center
+                    distanceFactor={8}
+                    zIndexRange={[120, 0]}
+                    style={{ pointerEvents: 'auto' }}
+                >
+                    <button
+                        type="button"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleEntranceSaveClick();
+                        }}
+                        style={{
+                            pointerEvents: 'auto',
+                            cursor: 'pointer',
+                            fontFamily: '"Cabin Sketch", "Microsoft YaHei", "Comic Sans MS", sans-serif',
+                            fontSize: '18px',
+                            fontWeight: 700,
+                            color: '#3a2a1a',
+                            padding: '8px 18px',
+                            border: '2px solid #6b4a2b',
+                            borderRadius: '12px',
+                            background: 'linear-gradient(180deg, #fff7e6 0%, #f4e3c1 100%)',
+                            boxShadow: '0 4px 12px rgba(80,50,20,0.25), inset 0 0 0 2px rgba(255,255,255,0.6)',
+                            letterSpacing: '0.12em',
+                            textShadow: '0 1px 0 rgba(255,255,255,0.7)',
+                            transform: 'translateZ(0) rotate(-1.5deg)',
+                            transition: 'transform 120ms ease-out, box-shadow 120ms ease-out',
+                            userSelect: 'none',
+                            whiteSpace: 'nowrap',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateZ(0) rotate(-1.5deg) scale(1.06)';
+                            e.currentTarget.style.boxShadow = '0 6px 18px rgba(80,50,20,0.35), inset 0 0 0 2px rgba(255,255,255,0.7)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateZ(0) rotate(-1.5deg)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(80,50,20,0.25), inset 0 0 0 2px rgba(255,255,255,0.6)';
+                        }}
+                    >
+                        {savedEntranceId ? '↩ 取消保存' : '🖍 保存此刻'}
+                    </button>
+                </Html>
+            )}
+
             {/* CAT SKETCH (Front Facing) */}
             <group position={[-1.5, floorY + 0.6, 0.8]} ref={catGroupRef}>
                 {/* Body */}
-                <mesh>
+                <mesh renderOrder={22}>
                     <planeGeometry args={[1.5, 1.5]} />
                     <meshBasicMaterial color="#e0e0e0"
                         map={catFrontBodyTexture}
                         transparent={true}
-                        alphaTest={0.01}
+                        alphaTest={0.05}
                         depthWrite={false}
                     />
                 </mesh>

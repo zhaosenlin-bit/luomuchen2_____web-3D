@@ -572,7 +572,7 @@ const EntranceDoors = ({
         // Reverse brush-stroke reveal
         if (rightDoorMaterialRef.current) {
             gsap.to(rightDoorMaterialRef.current, {
-                uProgress: 0.0,
+                uProgress: 1.0,
                 duration: 0.5,
                 ease: 'power2.out',
                 overwrite: true
@@ -580,7 +580,7 @@ const EntranceDoors = ({
         }
         if (leftDoorMaterialRef.current) {
             gsap.to(leftDoorMaterialRef.current, {
-                uProgress: 0.0,
+                uProgress: 1.0,
                 duration: 0.5,
                 ease: 'power2.out',
                 overwrite: true
@@ -588,7 +588,7 @@ const EntranceDoors = ({
         }
         if (leftHandleMaterialRef.current) {
             gsap.to(leftHandleMaterialRef.current, {
-                uProgress: 0.0,
+                uProgress: 1.0,
                 duration: 0.5,
                 ease: 'power2.out',
                 overwrite: true
@@ -596,7 +596,7 @@ const EntranceDoors = ({
         }
         if (rightHandleMaterialRef.current) {
             gsap.to(rightHandleMaterialRef.current, {
-                uProgress: 0.0,
+                uProgress: 1.0,
                 duration: 0.5,
                 ease: 'power2.out',
                 overwrite: true
@@ -964,7 +964,7 @@ const EntranceDoors = ({
                         alphaTest={0.5}
                         roughness={0.8}
                         depthWrite={false}
-                        uProgress={0.0}
+                        uProgress={1.0}
                     />
                 </mesh>
 
@@ -1003,7 +1003,7 @@ const EntranceDoors = ({
                             transparent={true}
                             alphaTest={0.5}
                             depthWrite={false}
-                            uProgress={0.0}
+                            uProgress={1.0}
                         />
                     </mesh>
                 </group>
@@ -1045,7 +1045,7 @@ const EntranceDoors = ({
                         alphaTest={0.5}
                         roughness={0.8}
                         depthWrite={false}
-                        uProgress={0.0}
+                        uProgress={1.0}
                     />
                 </mesh>
 
@@ -1083,7 +1083,7 @@ const EntranceDoors = ({
                             transparent={true}
                             alphaTest={0.5}
                             depthWrite={false}
-                            uProgress={0.0}
+                            uProgress={1.0}
                         />
                     </mesh>
                 </group>

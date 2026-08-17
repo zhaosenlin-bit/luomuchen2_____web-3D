@@ -36,6 +36,21 @@ export const AchievementsProvider = ({ children }) => {
             return [];
         }
     });
+    // Painted achievements: each unlocked achievement can additionally
+    // "paint" a corresponding scene element (e.g. a corridor frame or the
+    // entrance door) with its hand-drawn color variant. The painted state
+    // is persisted to localStorage so it survives a full page reload.
+    const [painted, setPainted] = useState(() => {
+        try {
+            const saved = localStorage.getItem('senlin_achievements_painted');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) return new Set(parsed);
+            }
+        } catch (e) { /* ignore */ }
+        return new Set();
+    });
+
 
     // Lazy global AudioContext to avoid creating it on every unlock
     const audioCtxRef = useRef(null);
@@ -99,6 +114,33 @@ export const AchievementsProvider = ({ children }) => {
         const toSave = completed.filter(id => id !== 'corridor_enter');
         localStorage.setItem('senlin_achievements', JSON.stringify(toSave));
     }, [completed]);
+
+    // Persist painted achievements (Set → Array for JSON)
+    useEffect(() => {
+        try {
+            localStorage.setItem(
+                'senlin_achievements_painted',
+                JSON.stringify(Array.from(painted))
+            );
+        } catch (e) { /* ignore */ }
+    }, [painted]);
+
+    // Mark an achievement as "painted" — its hand-drawn color is now
+    // permanently shown in the scene. Toggles off if already painted.
+    const paintAchievement = useCallback((id) => {
+        if (!ACHIEVEMENTS[id]) return;
+        setPainted(prev => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            return next;
+        });
+    }, []);
+
+    const isAchievementPainted = useCallback(
+        (id) => painted.has(id),
+        [painted]
+    );
 
     const showTutorial = useCallback((id) => {
         // Only show if it's a valid achievement, not already completed, and no popup currently active
@@ -165,10 +207,13 @@ export const AchievementsProvider = ({ children }) => {
     return (
         <AchievementsContext.Provider value={{
             completed,
+            painted,
             activePopup,
             showTutorial,
             unlockAchievement,
-            hidePopup
+            hidePopup,
+            paintAchievement,
+            isAchievementPainted
         }}>
             {children}
         </AchievementsContext.Provider>

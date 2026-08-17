@@ -21,6 +21,9 @@ const charsetPlugin = () => ({
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    host: '127.0.0.1', // Bind IPv4 too so browsers resolving localhost to 127.0.0.1 can connect
+  },
   base: '/cartoon/',
   build: {
     outDir: 'dist/cartoon',

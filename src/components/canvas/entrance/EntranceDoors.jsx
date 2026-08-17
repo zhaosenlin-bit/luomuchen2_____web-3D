@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text, useTexture, Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import '../shaders/RevealMaterial'; // Registers alpha-discard reveal shader
 import { playBackgroundMusic } from '../../../utils/audioManager';
 import { useAchievements } from '../../../context/AchievementsContext';
+import { ACHIEVEMENT_PAINT_MAP } from '../../../context/achievementPaintMap';
 import { isTouchDevice } from '../../../utils/deviceDetect';
 
 // Use same font as App.jsx preload (Inter) - works reliably
@@ -46,7 +47,18 @@ const EntranceDoors = ({
     const windowAvatarRef = useRef();
     const windowAvatarMaterialRef = useRef();
     const { camera, gl } = useThree();
-    const { unlockAchievement } = useAchievements();
+    const { unlockAchievement, painted: paintedAchievements } = useAchievements();
+
+    // Painted achievements: when the user clicks the "点亮一处颜色" button
+    // on the achievements panel for 'corridor_enter' (doors) or
+    // 'corridor_explore' (window), the painted state is propagated here so
+    // the entrance element stays in its hand-drawn color forever.
+    const paintedEntranceId = useMemo(() => {
+        if (!paintedAchievements) return null;
+        if (paintedAchievements.has('corridor_enter')) return 'doors';
+        if (paintedAchievements.has('corridor_explore')) return 'window';
+        return null;
+    }, [paintedAchievements]);
 
     const [isMobile, setIsMobile] = useState(false);
 
@@ -621,31 +633,49 @@ const EntranceDoors = ({
     const pathLength = 5.62;
 
     // Derived flags used by both the hover effects and the Save button.
-    // doorsRevealed: include savedEntranceId so saved doors stay open + painted.
-    const doorsRevealed = !isOpen && !isAnimating && (isHovered || savedEntranceId === 'doors');
-    const windowRevealed = isWindowHovered || savedEntranceId === 'window';
+    // doorsRevealed: include savedEntranceId AND paintedEntranceId so the
+    // doors stay open + painted if the user "painted" them via the
+    // achievements panel.
+    const doorsRevealed = !isOpen && !isAnimating && (
+        isHovered
+        || savedEntranceId === 'doors'
+        || paintedEntranceId === 'doors'
+    );
+    const windowRevealed = isWindowHovered
+        || savedEntranceId === 'window'
+        || paintedEntranceId === 'window';
 
     // The button is shown whenever the user can act — either hover-engaged
     // (so they can save), or already saved (so they can un-save).
-    const showEntranceSaveButton = isHovered || isWindowHovered || savedEntranceId !== null;
+    // We also show the button when something is "painted" via the
+    // achievements panel — but in that case the button becomes a
+    // disabled indicator ("已点亮") so the user can see what's painted
+    // without un-painting it accidentally.
+    const showEntranceSaveButton = isHovered
+        || isWindowHovered
+        || savedEntranceId !== null
+        || paintedEntranceId !== null;
 
     // Decide which element gets saved when the user clicks the button.
     // Priority: currently hovered element first; fall back to whatever is saved.
+    // Painted achievements (via the trophy button) are NOT toggled by this
+    // in-scene Save button — they have their own toggle in the panel.
     const handleEntranceSaveClick = () => {
         if (isHovered && !isWindowHovered) {
-            // Doors hovered — toggle saved state for doors.
             setSavedEntranceId((prev) => (prev === 'doors' ? null : 'doors'));
         } else if (isWindowHovered && !isHovered) {
-            // Window hovered — toggle saved state for window.
             setSavedEntranceId((prev) => (prev === 'window' ? null : 'window'));
         } else if (isHovered && isWindowHovered) {
-            // Both hovered at once — toggle doors (more central target).
             setSavedEntranceId((prev) => (prev === 'doors' ? null : 'doors'));
         } else if (savedEntranceId !== null) {
-            // Nothing hovered but something is saved — clear the save.
             setSavedEntranceId(null);
         }
     };
+
+    // Compose a friendly button label that reflects the painted state.
+    const entranceSaveLabel = paintedEntranceId
+        ? '✨ 已点亮'
+        : (savedEntranceId ? '↩ 取消保存' : '🖍 保存此刻');
 
     return (
         <group ref={groupRef} position={[position[0], 0, position[2]]}>
@@ -1192,7 +1222,7 @@ const EntranceDoors = ({
                             e.currentTarget.style.boxShadow = '0 4px 12px rgba(80,50,20,0.25), inset 0 0 0 2px rgba(255,255,255,0.6)';
                         }}
                     >
-                        {savedEntranceId ? '↩ 取消保存' : '🖍 保存此刻'}
+                        {entranceSaveLabel}
                     </button>
                 </Html>
             )}

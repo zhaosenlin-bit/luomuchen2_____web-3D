@@ -5,6 +5,8 @@ import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 import '../shaders/RevealMaterial';
 import { isTouchDevice } from '../../../utils/deviceDetect';
+import { useAchievements } from '../../../context/AchievementsContext';
+import { ACHIEVEMENT_PAINT_MAP } from '../../../context/achievementPaintMap';
 /**
  * CorridorDecorations - Dekoracje korytarza.
  * 
@@ -304,6 +306,31 @@ const CorridorDecorations = ({
     const [hoveredFrameIds, setHoveredFrameIds] = useState(() => new Set());
     const [savedFrameIds, setSavedFrameIds] = useState(() => new Set());
 
+    // Painted achievements: each achievement can be "painted" via the
+    // achievements panel (top-right trophy button). When painted, the
+    // corresponding frame stays in its hand-drawn color variant forever.
+    // We pull these IDs from the achievements context and merge them
+    // into the savedFrameIds lookup so all painting code paths work the
+    // same way.
+    const { painted: paintedAchievements } = useAchievements();
+
+    const paintedFrameIds = useMemo(() => {
+        const set = new Set();
+        if (!paintedAchievements) return set;
+        paintedAchievements.forEach((achId) => {
+            const target = ACHIEVEMENT_PAINT_MAP[achId];
+            if (target && target.type === 'frame') {
+                set.add(target.id);
+            }
+        });
+        return set;
+    }, [paintedAchievements]);
+
+    const isFrameSaved = useCallback(
+        (frameId) => savedFrameIds.has(frameId) || paintedFrameIds.has(frameId),
+        [savedFrameIds, paintedFrameIds]
+    );
+
     const handleFrameHoverChange = useCallback((frameId, isHovering) => {
         setHoveredFrameIds((prev) => {
             const next = new Set(prev);
@@ -323,10 +350,6 @@ const CorridorDecorations = ({
         });
     }, [hoveredFrameIds]);
 
-    const isFrameSaved = useCallback(
-        (frameId) => savedFrameIds.has(frameId),
-        [savedFrameIds]
-    );
 
 
     // =============================================

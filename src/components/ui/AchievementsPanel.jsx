@@ -1,9 +1,15 @@
 import React from 'react';
 import { useAchievements, ACHIEVEMENTS } from '../../context/AchievementsContext';
+import { ACHIEVEMENT_PAINT_MAP, PAINT_TARGET_LABEL } from '../../context/achievementPaintMap';
 import '../../styles/AchievementsPanel.scss';
 
 const AchievementsPanel = ({ isOpen, onClose }) => {
-    const { completed } = useAchievements();
+    const { completed, painted, paintAchievement } = useAchievements();
+
+    // How many achievements the user has painted so far (used in the footer
+    // and for the visual "已点亮" feedback).
+    const paintedCount = painted ? painted.size : 0;
+    const totalCount = Object.keys(ACHIEVEMENTS).length;
 
     return (
         <div className={`achievements-panel ${isOpen ? 'open' : ''}`} inert={!isOpen ? true : undefined}>
@@ -24,6 +30,11 @@ const AchievementsPanel = ({ isOpen, onClose }) => {
                 <div className="achievements-list">
                     {Object.values(ACHIEVEMENTS).map((achievement) => {
                         const isUnlocked = completed.includes(achievement.id);
+                        const isPainted = painted ? painted.has(achievement.id) : false;
+                        const paintTarget = ACHIEVEMENT_PAINT_MAP[achievement.id];
+                        const paintLabel = paintTarget
+                            ? (PAINT_TARGET_LABEL[paintTarget.id] || '场景中某处')
+                            : null;
                         return (
                             <div key={achievement.id} className={`achievement-item ${isUnlocked ? 'unlocked' : 'locked'}`}>
                                 <div className="achievement-icon">
@@ -43,13 +54,27 @@ const AchievementsPanel = ({ isOpen, onClose }) => {
                                     <div className="achievement-title">{achievement.title}</div>
                                     <div className="achievement-label">{achievement.label}</div>
                                 </div>
+                                {isUnlocked && paintTarget && (
+                                    <button
+                                        type="button"
+                                        className={`paint-toggle ${isPainted ? 'painted' : ''}`}
+                                        onClick={() => paintAchievement(achievement.id)}
+                                        title={isPainted
+                                            ? '已点亮 · 再点一下取消'
+                                            : '点亮' + (paintLabel ? ' ' + paintLabel : '')}
+                                    >
+                                        {isPainted ? '✨ 已点亮' : '🖍 点亮一处颜色'}
+                                    </button>
+                                )}
                             </div>
                         );
                     })}
                 </div>
 
                 <div className="achievements-footer">
-                    <span>{completed.length} / {Object.keys(ACHIEVEMENTS).length} EXPLORED</span>
+                    <span>
+                        {completed.length} / {totalCount} 已探索 · {paintedCount} 处已点亮
+                    </span>
                 </div>
             </div>
         </div>

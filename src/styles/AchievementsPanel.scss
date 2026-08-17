@@ -183,6 +183,57 @@
         }
     }
 
+    .paint-toggle {
+        flex-shrink: 0;
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        font-family: 'Patrick Hand', cursive, 'Microsoft YaHei', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: #1a1a1a;
+        background: #fff8e1;
+        border: 1.5px solid #1a1a1a;
+        border-radius: 4px;
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 1.5px 1.5px 0 #1a1a1a;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, color 0.2s ease;
+        transform: rotate(-1deg);
+        position: relative;
+        z-index: 1;
+        letter-spacing: 0.5px;
+
+        &:hover {
+            background: #ffe082;
+            transform: rotate(-1deg) translate(-1px, -1px);
+            box-shadow: 2.5px 2.5px 0 #1a1a1a;
+        }
+
+        &:active {
+            transform: rotate(-1deg) translate(0.5px, 0.5px);
+            box-shadow: 0.5px 0.5px 0 #1a1a1a;
+        }
+
+        &.painted {
+            background: #c8e6c9;
+            color: #1b5e20;
+            box-shadow: 1.5px 1.5px 0 #1b5e20;
+            border-color: #1b5e20;
+
+            &:hover {
+                background: #a5d6a7;
+                box-shadow: 2.5px 2.5px 0 #1b5e20;
+            }
+        }
+    }
+
+    .achievement-item.locked .paint-toggle {
+        display: none;
+    }
+
     .achievements-footer {
         margin-top: 12px;
         padding-top: 10px;

@@ -40,7 +40,7 @@ const FALLBACK_PROJECTS = [
         title: '宇宙探索者',
         front: '/cartoon/media/apps/card-summit.jpg',
         painted: '/cartoon/media/apps/card-summit.jpg',
-        url: 'http://127.0.0.1:8123/index.html',
+        url: 'https://zhaosenlin-bit.github.io/luomuchen-web/',
         description: '探索宇宙的网站 + 游戏：3D 视图、行星档案、宇宙影像画廊，还有 5 阶段闯关游戏。用 React + Vite + TypeScript + Three.js 做的。',
         techStack: []
     },

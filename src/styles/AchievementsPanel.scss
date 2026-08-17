@@ -183,9 +183,34 @@
         }
     }
 
-    .paint-toggle {
+    .paint-toggle-splash {
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        pointer-events: none;
+        opacity: 0;
+        animation: paint-splash-anim 0.9s ease-out forwards;
+        z-index: 2;
+    }
+
+    @keyframes paint-splash-anim {
+        0%   { opacity: 0; transform: translate(-50%, 0) scale(0.4) rotate(-15deg); }
+        25%  { opacity: 1; transform: translate(-50%, -10px) scale(1.2) rotate(-8deg); }
+        75%  { opacity: 1; transform: translate(-50%, -28px) scale(1) rotate(5deg); }
+        100% { opacity: 0; transform: translate(-50%, -42px) scale(0.7) rotate(10deg); }
+    }
+
+    .paint-toggle-wrap {
+        position: relative;
         flex-shrink: 0;
         margin-left: auto;
+        display: inline-flex;
+    }
+
+    .paint-toggle {
+        flex-shrink: 0;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -232,6 +257,16 @@
 
     .achievement-item.locked .paint-toggle {
         display: none;
+    }
+
+    .achievement-item.just-painted {
+        animation: row-paint-flash 1.2s ease-out;
+    }
+
+    @keyframes row-paint-flash {
+        0%   { background: transparent; }
+        15%  { background: rgba(255, 224, 130, 0.55); }
+        100% { background: transparent; }
     }
 
     .achievements-footer {

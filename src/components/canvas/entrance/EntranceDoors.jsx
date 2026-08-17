@@ -113,6 +113,116 @@ const EntranceDoors = ({
         avatarWindowTexture.needsUpdate = true;
     }, [avatarWindowTexture, gl]);
 
+    // PAINTED ACHIEVEMENT BRIDGE
+    // ===========================
+    // The achievement "点亮一处颜色" button lives in the achievements panel
+    // (top-right trophy), not in the scene. When the user paints an
+    // achievement, `paintedEntranceId` flips to 'doors' or 'window' — but
+    // because the in-scene hover handlers are the only place that triggers
+    // the gsap reveal animations, we need an explicit effect that runs
+    // those same animations whenever the painted state changes.
+    //
+    // This effect runs on every change of `paintedEntranceId`:
+    //   - 'doors'  → slightly open the doors + set door/handle uProgress=1
+    //   - 'window' → slide the window avatar into view + opacity=1
+    //   - null     → leave it alone (the user didn't paint anything)
+    useEffect(() => {
+        if (!paintedEntranceId) return;
+        if (isOpen || isAnimating) return;
+
+        if (paintedEntranceId === 'doors') {
+            if (leftDoorRef.current) {
+                gsap.to(leftDoorRef.current.rotation, {
+                    y: -0.08,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (rightDoorRef.current) {
+                gsap.to(rightDoorRef.current.rotation, {
+                    y: 0.08,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (leftHandleRef.current) {
+                gsap.to(leftHandleRef.current.rotation, {
+                    z: 0.1,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (rightHandleRef.current) {
+                gsap.to(rightHandleRef.current.rotation, {
+                    z: -0.1,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (leftDoorMaterialRef.current) {
+                gsap.to(leftDoorMaterialRef.current, {
+                    uProgress: 1.0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (rightDoorMaterialRef.current) {
+                gsap.to(rightDoorMaterialRef.current, {
+                    uProgress: 1.0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (leftHandleMaterialRef.current) {
+                gsap.to(leftHandleMaterialRef.current, {
+                    uProgress: 1.0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (rightHandleMaterialRef.current) {
+                gsap.to(rightHandleMaterialRef.current, {
+                    uProgress: 1.0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (leftHandlePaintedRef.current) leftHandlePaintedRef.current.visible = true;
+            if (rightHandlePaintedRef.current) rightHandlePaintedRef.current.visible = true;
+        } else if (paintedEntranceId === 'window') {
+            if (windowAvatarRef.current) {
+                gsap.to(windowAvatarRef.current.position, {
+                    x: 2.5,
+                    duration: 0.5,
+                    ease: 'back.out(1.7)',
+                    overwrite: 'auto'
+                });
+                gsap.to(windowAvatarRef.current.rotation, {
+                    z: 0.1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+            if (windowAvatarMaterialRef.current) {
+                gsap.to(windowAvatarMaterialRef.current, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            }
+        }
+    }, [paintedEntranceId, isOpen, isAnimating]);
+
 
     // Cat Ref
     const leftPupilRef = useRef();
